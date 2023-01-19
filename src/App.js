@@ -6,9 +6,9 @@ import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import ContextAPI from "./ContextAPI/ContextAPI";
 import { Routes, Route } from 'react-router-dom';
-import Home from './Pages/Home';
-import Cliente from './Pages/Cliente';
-import Financeiro from './Pages/Financeiro';
+import Home from './Pages/Home/Home';
+import Cliente from './Pages/Cliente/Cliente';
+import Financeiro from './Pages/Financeiro/Financeiro';
 
 
 function App() {
@@ -45,15 +45,16 @@ function App() {
         setDados(res.data[0]);
       });
   }, []);
+  
   return (
     <ContextAPI.Provider value={{ dados, setDados }}>
       <ThemeProvider theme={theme}>       
           <NavBar />
           <Container fixed>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cliente" element={<Cliente />} />
-            <Route path="/financeiro" element={<Financeiro />} />            
+            <Route path="/portal_cliente" element={<Home />} />
+            <Route path="/portal_cliente/cliente" element={<Cliente />} />
+            <Route path="/portal_cliente/financeiro" element={<Financeiro />} />            
           </Routes>
           </Container>       
       </ThemeProvider>

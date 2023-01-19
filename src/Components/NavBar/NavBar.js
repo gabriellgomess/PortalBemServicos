@@ -77,17 +77,17 @@ const NavBar = () => {
               }}
             >
               
-              <Link to="/">
+              <Link to="/portal_cliente">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Home</Typography>
                 </MenuItem>
               </Link>
-              <Link to="/cliente">
+              <Link to="/portal_cliente/cliente">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Cliente</Typography>
                 </MenuItem>
               </Link>
-              <Link to="/financeiro">
+              <Link to="/portal_cliente/financeiro">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Financeiro</Typography>
                 </MenuItem>
@@ -117,17 +117,17 @@ const NavBar = () => {
           Bem Serviços
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Link to="/">
+              <Link to="/portal_cliente">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Home</Typography>
                 </MenuItem>
               </Link>
-              <Link to="/cliente">
+              <Link to="/portal_cliente/cliente">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Cliente</Typography>
                 </MenuItem>
               </Link>
-              <Link to="/financeiro">
+              <Link to="/portal_cliente/financeiro">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Financeiro</Typography>
                 </MenuItem>
