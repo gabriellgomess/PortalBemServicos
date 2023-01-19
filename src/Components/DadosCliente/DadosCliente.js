@@ -4,6 +4,7 @@ import ContextAPI from "../../ContextAPI/ContextAPI";
 
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
+import PersonIcon from '@mui/icons-material/Person';
 
 const DadosCliente = () => {
   const { dados, setDados } = useContext(ContextAPI);
@@ -21,9 +22,11 @@ const DadosCliente = () => {
               width: { xs: "100%", md: 375 },
               padding: 2,
               marginTop: 3,
-              background: "lightgrey",
             }}
           >
+            <Typography variant="h6" component="div" gutterBottom sx={{display: 'flex', alignItems: 'center'}}>
+              <PersonIcon /> Dados do Cliente
+            </Typography>
             <Typography variant="h6" component="div" gutterBottom>
               {dados.cliente_nome}
             </Typography>

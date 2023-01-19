@@ -14,7 +14,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Hidden } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import PopoverParcelas from "../PopoverParcelas/PopoverParcelas";
 
 const RelatorioFinanceiro = () => {
   const { dados, setDados } = useContext(ContextAPI);
@@ -33,7 +32,19 @@ const RelatorioFinanceiro = () => {
     return moment(date).format("DD/MM/YYYY");
   };
 
- 
+  const handleParcelas = (parcelas) => {
+    let parcelasArray = parcelas.split(",");
+    let count = parcelasArray.length;
+
+    if (count === 1) {
+        return "1 parcela"
+    } else if(count > 1) {
+        return count + " parcelas"
+    }else{
+        return "Não há parcelas"
+    }
+
+  }
 
   return (
     <Card
@@ -72,7 +83,7 @@ const RelatorioFinanceiro = () => {
                 <TableCell align="center">{row.id_boleto}</TableCell>
                 </Hidden>
                 <TableCell align="center">
-                  <PopoverParcelas parcelas={row.parcelas_correspondentes} />
+                  {handleParcelas(row.parcelas_correspondentes)}
                 </TableCell>
                 <TableCell align="center">{row.status}</TableCell>
                 <TableCell align="center">

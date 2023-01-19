@@ -10,8 +10,7 @@ import AlertTitle from "@mui/material/AlertTitle";
 const Cliente = () => {
     return (
         <>
-        <h1>Cliente</h1>
-          <Alert severity="warning">
+          <Alert sx={{marginTop: 3}} severity="warning">
             <AlertTitle>Atenção</AlertTitle>
             Você possui parcelas em atraso —{" "}
             <strong>Regularize hoje mesmo</strong>
