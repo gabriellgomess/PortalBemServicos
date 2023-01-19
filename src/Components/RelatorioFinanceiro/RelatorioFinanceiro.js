@@ -12,6 +12,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import { Hidden } from "@mui/material";
 import Paper from "@mui/material/Paper";
 
 const RelatorioFinanceiro = () => {
@@ -50,7 +51,7 @@ const RelatorioFinanceiro = () => {
   return (
     <Card
       sx={{
-        width: "100%",
+        width: { xs: "90%", md: "100%" },
         padding: 2,
         marginTop: 3,
         background: "lightgrey",
@@ -61,11 +62,13 @@ const RelatorioFinanceiro = () => {
       </Typography>
 
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 800 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Transação ID</TableCell>
+              <Hidden mdDown>
               <TableCell align="center">ID Boleto</TableCell>
+              </Hidden>
               <TableCell align="center">Parcelas Correspondentes</TableCell>
               <TableCell align="center">Status</TableCell>
               <TableCell align="center">Vencimento</TableCell>
@@ -78,7 +81,9 @@ const RelatorioFinanceiro = () => {
                 <TableCell component="th" scope="row">
                   {row.transacao_id}
                 </TableCell>
+                <Hidden mdDown>
                 <TableCell align="center">{row.id_boleto}</TableCell>
+                </Hidden>
                 <TableCell align="center">
                   {handleParcelas(row.parcelas_correspondentes)}
                 </TableCell>

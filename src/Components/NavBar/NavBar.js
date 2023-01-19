@@ -77,19 +77,24 @@ const NavBar = () => {
               }}
             >
               
-              <Link to="/portal_cliente">
+              <Link to="/portal">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Home</Typography>
                 </MenuItem>
               </Link>
-              <Link to="/portal_cliente/cliente">
+              <Link to="/portal/cliente">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Cliente</Typography>
                 </MenuItem>
               </Link>
-              <Link to="/portal_cliente/financeiro">
+              <Link to="/portal/financeiro">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Financeiro</Typography>
+                </MenuItem>
+              </Link>
+              <Link to="/portal/cartao">
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Cartão</Typography>
                 </MenuItem>
               </Link>
               
@@ -117,19 +122,24 @@ const NavBar = () => {
           Bem Serviços
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Link to="/portal_cliente">
+              <Link to="/portal">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Home</Typography>
                 </MenuItem>
               </Link>
-              <Link to="/portal_cliente/cliente">
+              <Link to="/portal/cliente">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Cliente</Typography>
                 </MenuItem>
               </Link>
-              <Link to="/portal_cliente/financeiro">
+              <Link to="/portal/financeiro">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Financeiro</Typography>
+                </MenuItem>
+              </Link>
+              <Link to="/portal/cartao">
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Cartão</Typography>
                 </MenuItem>
               </Link>
           </Box>          

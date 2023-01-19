@@ -9,6 +9,8 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home/Home';
 import Cliente from './Pages/Cliente/Cliente';
 import Financeiro from './Pages/Financeiro/Financeiro';
+import NoPage from './Components/NoPage/NoPage';
+import Cartao from "./Pages/Cartao/Cartao";
 
 
 function App() {
@@ -51,11 +53,15 @@ function App() {
       <ThemeProvider theme={theme}>       
           <NavBar />
           <Container fixed>
+          {dados?
           <Routes>
-            <Route path="/portal_cliente" element={<Home />} />
-            <Route path="/portal_cliente/cliente" element={<Cliente />} />
-            <Route path="/portal_cliente/financeiro" element={<Financeiro />} />            
+            <Route path="/portal" element={<Home />} />
+            <Route path="/portal/cliente" element={<Cliente />} />
+            <Route path="/portal/financeiro" element={<Financeiro />} />
+            <Route path="/portal/cartao" element={<Cartao />} />             
           </Routes>
+          :<NoPage />}
+          
           </Container>       
       </ThemeProvider>
     </ContextAPI.Provider>
