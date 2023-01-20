@@ -14,6 +14,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Hidden } from "@mui/material";
 import Paper from "@mui/material/Paper";
+import PopoverParcelas from "../PopoverParcelas/PopoverParcelas";
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 const RelatorioFinanceiro = () => {
   const { dados, setDados } = useContext(ContextAPI);
@@ -22,7 +24,6 @@ const RelatorioFinanceiro = () => {
   useEffect(() => {    
     axios.post("https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/busca-info-financeiro.php?id="+dados.vendas_id)
       .then((res) => {
-        console.log(res.data);
         setRelatorio(res.data);        
       });
   }, [dados]);
@@ -32,19 +33,17 @@ const RelatorioFinanceiro = () => {
     return moment(date).format("DD/MM/YYYY");
   };
 
-  const handleParcelas = (parcelas) => {
-    let parcelasArray = parcelas.split(",");
-    let count = parcelasArray.length;
-
-    if (count === 1) {
-        return "1 parcela"
-    } else if(count > 1) {
-        return count + " parcelas"
-    }else{
-        return "Não há parcelas"
+  const handleCheckStatus = (status) => {
+    if (status === "Boleto Recebido") {
+      return <Typography sx={{color: '#388e3c', fontWeight:'bold'}} variant="body2">Pago</Typography>;
+    } else if (status === "Boleto vencido") {
+      return <Typography sx={{color: '#d32f2f', fontWeight:'bold'}} variant="body2">Vencido</Typography>;
+    } else if (status === "Emitido o boleto") {
+      return <Typography sx={{color: '#f57c00', fontWeight:'bold'}} variant="body2">Pendente</Typography>;
     }
+  };
 
-  }
+ 
 
   return (
     <Card
@@ -55,8 +54,8 @@ const RelatorioFinanceiro = () => {
         background: 'rgba(0, 0, 0, 0.54)',
       }}
     >
-      <Typography sx={{color: '#fff'}} variant="h6" component="div" gutterBottom>
-        Relatório Financeiro
+      <Typography sx={{color: '#fff', display: 'flex', alignItems: 'center'}} variant="h6" component="div" gutterBottom>
+        Relatório Financeiro <AttachMoneyIcon sx={{color: '#fff'}}/>
       </Typography>
 
       <TableContainer component={Paper}>
@@ -83,9 +82,9 @@ const RelatorioFinanceiro = () => {
                 <TableCell align="center">{row.id_boleto}</TableCell>
                 </Hidden>
                 <TableCell align="center">
-                  {handleParcelas(row.parcelas_correspondentes)}
+                  <PopoverParcelas parcelas={row.parcelas_correspondentes} />
                 </TableCell>
-                <TableCell align="center">{row.status}</TableCell>
+                <TableCell align="center">{handleCheckStatus(row.status)}</TableCell>
                 <TableCell align="center">
                   {handleFormatDate(row.dueDate)}
                 </TableCell>

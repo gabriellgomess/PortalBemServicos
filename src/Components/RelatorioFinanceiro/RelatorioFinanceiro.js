@@ -1,94 +1,154 @@
-import React, { useContext, useEffect, useState } from "react";
-import "./RelatorioFinanceiro.css";
-import Card from "@mui/material/Card";
+import React, { useEffect, useState, useContext } from "react";
+import { DataGrid } from "@mui/x-data-grid";
 import ContextAPI from "../../ContextAPI/ContextAPI";
-import Typography from "@mui/material/Typography";
 import axios from "axios";
 import moment from "moment";
-
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import { Hidden } from "@mui/material";
-import Paper from "@mui/material/Paper";
 import PopoverParcelas from "../PopoverParcelas/PopoverParcelas";
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import "./RelatorioFinanceiro.css";
 
 const RelatorioFinanceiro = () => {
   const { dados, setDados } = useContext(ContextAPI);
   const [relatorio, setRelatorio] = useState([]);
 
-  useEffect(() => {    
-    axios.post("https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/busca-info-financeiro.php?id="+dados.vendas_id)
+  useEffect(() => {
+    axios
+      .post(
+        "https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/busca-info-financeiro.php?id=" +
+          dados.vendas_id
+      )
       .then((res) => {
-        setRelatorio(res.data);        
+        if (res.status === 200) {
+          setRelatorio(res.data);
+          console.log(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, [dados]);
 
+  return (
+    <div style={{ height: 400, width: "100%" }}>
+      {relatorio ? <DataTable relatorio={relatorio} /> : "Carregando..."}
+    </div>
+  );
+};
+
+const DataTable = ({ relatorio }) => {
   const handleFormatDate = (date) => {
     moment.locale("pt-br");
     return moment(date).format("DD/MM/YYYY");
   };
-
- 
-
+  const handleCheckStatus = (status) => {
+    if (status === "Boleto Recebido") {
+      return (
+        <Typography
+          sx={{ color: "#388e3c", fontWeight: "bold" }}
+          variant="body2"
+        >
+          Pago
+        </Typography>
+      );
+      // return "Pago";
+    } else if (status === "Boleto vencido") {
+      return (
+        <Typography
+          sx={{ color: "#d32f2f", fontWeight: "bold" }}
+          variant="body2"
+        >
+          Vencido
+        </Typography>
+      );
+      // return "Vencido";
+    } else if (status === "Emitido o boleto") {
+      return (
+        <Typography
+          sx={{ color: "#f57c00", fontWeight: "bold" }}
+          variant="body2"
+        >
+          Pendente
+        </Typography>
+      );
+      // return "Pendente";
+    }
+  };
+  const columns = [
+    { field: "transacao_id", 
+      headerName: "ID Transação", 
+      width: 130 
+    },    
+    {
+      field: "id_boleto",
+      headerName: "ID Boleto",
+      width: 200,
+      alignItems: 'center' 
+    },
+    
+    {
+      field: "parcelas_correspondentes",
+      headerName: "Parcelas Correspondentes",
+      width: 200,
+      renderCell: (params) => <PopoverParcelas parcelas={params.value} />,
+    },
+    {
+      field: "status",
+      headerName: "Status",
+      width: 150,
+      renderCell: (params) => handleCheckStatus(params.value),
+    },
+    {
+      field: "dueDate",
+      headerName: "Vencimento",
+      width: 200,
+      type: "date",
+      alignItems: 'center',
+      valueFormatter: (params) => handleFormatDate(params.value),
+    },
+    {
+      field: "value",
+      headerName: "Valor",
+      width: 200,
+      type: "number",
+      valueFormatter: (params) =>
+        parseFloat(params.value).toLocaleString("pt-br", {
+          style: "currency",
+          currency: "BRL",
+        }),
+    },
+  ];
+  let updatedRelatorio = relatorio.map((row, index) => {
+    return { ...row, id: index };
+  });
   return (
     <Card
       sx={{
         width: { xs: "90%", md: "100%" },
+        height: { xs: "120%", md: "110%" },
         padding: 2,
         marginTop: 3,
-        background: 'rgba(0, 0, 0, 0.54)',
+        background: "rgba(0, 0, 0, 0.54)",
       }}
     >
-      <Typography sx={{color: '#fff', display: 'flex', alignItems: 'center'}} variant="h6" component="div" gutterBottom>
-        Relatório Financeiro <AttachMoneyIcon sx={{color: '#fff'}}/>
+      <Typography
+        sx={{ color: "#fff", display: "flex", alignItems: "center" }}
+        variant="h6"
+        component="div"
+        gutterBottom
+      >
+        Relatório Financeiro <AttachMoneyIcon sx={{ color: "#fff" }} />
       </Typography>
 
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 800 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Transação ID</TableCell>
-              <Hidden mdDown>
-              <TableCell align="center">ID Boleto</TableCell>
-              </Hidden>
-              <TableCell align="center">Parcelas Correspondentes</TableCell>
-              <TableCell align="center">Status</TableCell>
-              <TableCell align="center">Vencimento</TableCell>
-              <TableCell align="center">Valor</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {relatorio?.map((row) => (
-              <TableRow key={row.transacao_id}>
-                <TableCell component="th" scope="row">
-                  {row.transacao_id}
-                </TableCell>
-                <Hidden mdDown>
-                <TableCell align="center">{row.id_boleto}</TableCell>
-                </Hidden>
-                <TableCell align="center">
-                  <PopoverParcelas parcelas={row.parcelas_correspondentes} />
-                </TableCell>
-                <TableCell align="center">{row.status}</TableCell>
-                <TableCell align="center">
-                  {handleFormatDate(row.dueDate)}
-                </TableCell>
-                <TableCell align="center">
-                  {parseFloat(row.value).toLocaleString("pt-br", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <DataGrid
+        sx={{ background: "#fff", height: "88%" }}
+        rows={updatedRelatorio}
+        columns={columns}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
+        // checkboxSelection
+      />
     </Card>
   );
 };

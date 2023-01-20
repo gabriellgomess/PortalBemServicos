@@ -27,8 +27,6 @@ const PopoverParcelas = (props) => {
         return count + " parcelas"
     }
 }
-
-
   const parcelasCorrespondentes = props.parcelas.split(",");
 
   const open = Boolean(anchorEl);
