@@ -16,17 +16,18 @@ const PopoverParcelas = (props) => {
 
   const handleParcelas = (parcelas) => {
     let parcelasArray = parcelas.split(",");
-    let count = parcelasArray.length;
-
-    if (count === 1) {
-        return "1 parcela"
-    } else if(count > 1) {
-        return count + " parcelas"
-    }else{
+    if (!Array.isArray(parcelasArray) || !parcelasArray.join('')) {
         return "Não há parcelas"
     }
+    let count = parcelasArray.length;
+    
+    if (count === 1) {
+        return "1 parcela"
+    } else {
+        return count + " parcelas"
+    }
+}
 
-  }
 
   const parcelasCorrespondentes = props.parcelas.split(",");
 
@@ -35,7 +36,7 @@ const PopoverParcelas = (props) => {
 
   return (
     <div>
-      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
+      <Button aria-describedby={id} variant="text" onClick={handleClick}>
         {handleParcelas(props.parcelas)}
       </Button>
       <Popover
@@ -48,10 +49,10 @@ const PopoverParcelas = (props) => {
           horizontal: 'left',
         }}
       >
-
+        {parcelasCorrespondentes?<Typography sx={{ p: 2 }}>Parcelas relacionadas ao boleto</Typography>:null}
         {parcelasCorrespondentes?.map((parcela) => {
             return(                
-                <Typography sx={{ p: 2 }}>{parcela?parcela:"Nenhuma parcela relacionada ao boleto"}</Typography>
+                <Typography sx={{ p: 2 }}>{parcela?"Nº "+parcela:"Não há"}</Typography>
             )
         })
         }

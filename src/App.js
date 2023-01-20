@@ -40,12 +40,25 @@ function App() {
   });
 
   useEffect(() => {
-    axios
+    // verificar se tem dados no localstorage   
+    const dadosStorage = localStorage.getItem("dados"); 
+    console.log(typeof dadosStorage)
+    if ( dadosStorage !== null && dadosStorage !== "undefined" && dadosStorage !== "") {
+      setDados(JSON.parse(dadosStorage));
+      console.log("dados do localstorage");
+    }else{
+      console.log("dados da api");
+      axios
       .get("https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/busca-dados.php?data=" + dataConvert )
       .then((res) => {
-        console.log(res.data[0]);
         setDados(res.data[0]);
+        // salvar em localstorage
+        localStorage.setItem("dados", JSON.stringify(res.data[0]));              
       });
+    }
+      
+    
+    
   }, []);
   
   return (

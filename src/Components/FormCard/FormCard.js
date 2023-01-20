@@ -16,6 +16,7 @@ const FormCard = () => {
     name: "",
     number: "",
   });
+  const [cardSend, setCardSend] = useState([])
 
   const handleInputFocus = (e) => {
     setCard({ ...card, focus: e.target.name });
@@ -27,9 +28,9 @@ const FormCard = () => {
   };
 
   const { register, handleSubmit, reset, errors } = useForm();
-
+  console.log(card)
   const onSubmit = (data) => {
-    console.log(data);
+    setCardSend({ ...card, [data.name]: data.value });
     reset();
   };
 

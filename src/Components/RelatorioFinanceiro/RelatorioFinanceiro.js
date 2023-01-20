@@ -15,6 +15,7 @@ import TableRow from "@mui/material/TableRow";
 import { Hidden } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import PopoverParcelas from "../PopoverParcelas/PopoverParcelas";
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 const RelatorioFinanceiro = () => {
   const { dados, setDados } = useContext(ContextAPI);
@@ -23,7 +24,6 @@ const RelatorioFinanceiro = () => {
   useEffect(() => {    
     axios.post("https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/busca-info-financeiro.php?id="+dados.vendas_id)
       .then((res) => {
-        console.log(res.data);
         setRelatorio(res.data);        
       });
   }, [dados]);
@@ -44,8 +44,8 @@ const RelatorioFinanceiro = () => {
         background: 'rgba(0, 0, 0, 0.54)',
       }}
     >
-      <Typography sx={{color: '#fff'}} variant="h6" component="div" gutterBottom>
-        Relatório Financeiro
+      <Typography sx={{color: '#fff', display: 'flex', alignItems: 'center'}} variant="h6" component="div" gutterBottom>
+        Relatório Financeiro <AttachMoneyIcon sx={{color: '#fff'}}/>
       </Typography>
 
       <TableContainer component={Paper}>

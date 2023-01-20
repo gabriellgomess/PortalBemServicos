@@ -15,26 +15,25 @@ import AdbIcon from '@mui/icons-material/Adb';
 import './NavBar.css';
 import Logo from '../../assets/Logo_rmvbg.png';
 import { Link } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleLogout = () => {
+    localStorage.removeItem("dados");
+    window.location.href = "/portal";
   };
 
   return (
@@ -142,7 +141,14 @@ const NavBar = () => {
                   <Typography textAlign="center">Cartão</Typography>
                 </MenuItem>
               </Link>
-          </Box>          
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Sair">
+              <IconButton onClick={()=>handleLogout()} sx={{ p: 0 }}>
+                <LogoutIcon />
+              </IconButton>
+            </Tooltip>            
+              </Box>   
         </Toolbar>
       </Container>
     </AppBar>
