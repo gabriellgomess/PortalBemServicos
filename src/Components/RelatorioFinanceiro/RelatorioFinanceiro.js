@@ -12,6 +12,7 @@ import "./RelatorioFinanceiro.css";
 const RelatorioFinanceiro = () => {
   const { dados, setDados } = useContext(ContextAPI);
   const [relatorio, setRelatorio] = useState([]);
+  const [pagar, setPagar] = useState([]);
 
   useEffect(() => {
     axios
@@ -22,7 +23,6 @@ const RelatorioFinanceiro = () => {
       .then((res) => {
         if (res.status === 200) {
           setRelatorio(res.data);
-          console.log(res.data);
         }
       })
       .catch((err) => {
@@ -32,12 +32,13 @@ const RelatorioFinanceiro = () => {
 
   return (
     <div style={{ height: 400, width: "100%" }}>
-      {relatorio ? <DataTable relatorio={relatorio} /> : "Carregando..."}
+      {relatorio ? <ContextAPI.Provider value={{pagar, setPagar}}><DataTable relatorio={relatorio} /></ContextAPI.Provider> : "Carregando..."}
     </div>
   );
 };
 
 const DataTable = ({ relatorio }) => {
+  const {pagar, setPagar} = useContext(ContextAPI);
   const handleFormatDate = (date) => {
     moment.locale("pt-br");
     return moment(date).format("DD/MM/YYYY");
@@ -123,6 +124,7 @@ const DataTable = ({ relatorio }) => {
     return { ...row, id: index };
   });
   return (
+    <>
     <Card
       sx={{
         width: { xs: "90%", md: "100%" },
@@ -150,8 +152,23 @@ const DataTable = ({ relatorio }) => {
         pageSize={5}
         rowsPerPageOptions={[5]}
         checkboxSelection
+        onSelectionModelChange={(newSelection) => {
+          const selectedIDs = new Set(newSelection);
+          const selectedRowData = updatedRelatorio.filter((row) =>
+            selectedIDs.has(row.id)
+          );
+          console.log(selectedRowData);
+          setPagar(selectedRowData)
+        }
+        }
       />
     </Card>
+    {pagar?.map((row) => (
+      <div key={row.id}>        
+        <p>{row.id_boleto}</p>        
+      </div>
+    ))}
+    </>
   );
 };
 
