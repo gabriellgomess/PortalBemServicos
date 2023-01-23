@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, ptBR } from "@mui/x-data-grid";
 import ContextAPI from "../../ContextAPI/ContextAPI";
 import axios from "axios";
 import moment from "moment";
@@ -142,12 +142,14 @@ const DataTable = ({ relatorio }) => {
       </Typography>
 
       <DataGrid
+      // Traduzir para português BR
+        localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
         sx={{ background: "#fff", height: "88%" }}
         rows={updatedRelatorio}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        // checkboxSelection
+        checkboxSelection
       />
     </Card>
   );

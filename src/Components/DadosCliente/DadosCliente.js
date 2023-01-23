@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import PersonIcon from '@mui/icons-material/Person';
 
 const DadosCliente = () => {
-  const { dados, setDados } = useContext(ContextAPI);
+  const { dados, setDados } = useContext(ContextAPI); 
 
   const handleFormatCPF = (cpf) => {
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");

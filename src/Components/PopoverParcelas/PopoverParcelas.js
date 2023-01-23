@@ -6,13 +6,16 @@ import Button from '@mui/material/Button';
 const PopoverParcelas = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = (event) => {
+  const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handlePopoverClose = () => {
     setAnchorEl(null);
   };
+
+  const open = Boolean(anchorEl);
+
 
   const handleParcelas = (parcelas) => {
     let parcelasArray = parcelas.split(",");
@@ -29,23 +32,31 @@ const PopoverParcelas = (props) => {
 }
   const parcelasCorrespondentes = props.parcelas.split(",");
 
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const id = open ? 'mouse-over-popover' : undefined;
 
   return (
     <div>
-      <Button aria-describedby={id} variant="text" onClick={handleClick}>
+      <Button aria-owns={id} variant="text" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} aria-haspopup="true">
         {handleParcelas(props.parcelas)}
       </Button>
       <Popover
         id={id}
+        sx={{
+          pointerEvents: 'none',
+          cursor: 'pointer',
+        }}
         open={open}
         anchorEl={anchorEl}
-        onClose={handleClose}
+        onClose={handlePopoverClose}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
         }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        disableRestoreFocus
       >
         {parcelasCorrespondentes?<Typography sx={{ p: 2 }}>Parcelas relacionadas ao boleto</Typography>:null}
         {parcelasCorrespondentes?.map((parcela) => {

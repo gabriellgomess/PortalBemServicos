@@ -1,23 +1,15 @@
 import React from "react";
 import "./Cliente.css";
 import DadosCliente from "../../Components/DadosCliente/DadosCliente";
-
-
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
+import AlertaParcelas from "../../Components/AlertaParcelas/AlertaParcelas";
 
 
 const Cliente = () => {
     return (
         <>
-          <Alert sx={{marginTop: 3}} severity="warning">
-            <AlertTitle>Atenção</AlertTitle>
-            Você possui parcelas em atraso —{" "}
-            <strong>Regularize hoje mesmo</strong>
-          </Alert>
+        <AlertaParcelas />
         <div className="container--cliente">
-        <DadosCliente />
-        
+        <DadosCliente />        
         </div>
         </>
     );
