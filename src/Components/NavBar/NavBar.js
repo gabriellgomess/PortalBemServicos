@@ -91,11 +91,11 @@ const NavBar = () => {
                   <Typography textAlign="center">Financeiro</Typography>
                 </MenuItem>
               </Link>
-              <Link to="/portal/cartao">
+              {/* <Link to="/portal/cartao">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Cartão</Typography>
                 </MenuItem>
-              </Link>
+              </Link> */}
               
             </Menu>
           </Box>          
@@ -136,11 +136,11 @@ const NavBar = () => {
                   <Typography textAlign="center">Financeiro</Typography>
                 </MenuItem>
               </Link>
-              <Link to="/portal/cartao">
+              {/* <Link to="/portal/cartao">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Cartão</Typography>
                 </MenuItem>
-              </Link>
+              </Link> */}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Sair">

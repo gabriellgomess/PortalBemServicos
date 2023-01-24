@@ -46,7 +46,7 @@ const FormCard = () => {
   return (
     <div className="cartao">
       
-      <Card className="form-card" sx={{ width: 300, padding: 5 }}>
+      <Card className="form-card" sx={{ width: 300, padding: 5, margin: '10px auto' }}>
       <Cards
           locale={locale}
           cvc={card.cvc}
@@ -106,14 +106,14 @@ const FormCard = () => {
             />
           </Box>
 
-          <Button
+          {/* <Button
             sx={{ marginTop: 5 }}
             type="submit"
             variant="contained"
             color="primary"
           >
             finalizar
-          </Button>
+          </Button> */}
         </Box>
       </Card>
     </div>

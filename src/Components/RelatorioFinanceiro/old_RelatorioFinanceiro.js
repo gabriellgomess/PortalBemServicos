@@ -10,7 +10,6 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import Button from "@mui/material/Button";
 import "./RelatorioFinanceiro.css";
 import FormCobranca from "../FormCobranca/FormCobranca";
-import collect from "collect.js";
 
 const RelatorioFinanceiro = () => {
   const { dados, setDados } = useContext(ContextAPI);
@@ -25,8 +24,7 @@ const RelatorioFinanceiro = () => {
       )
       .then((res) => {
         if (res.status === 200) {
-          let result = res.data.filter(item => item.transacao_recebido == 2)
-          setRelatorio(result);
+          setRelatorio(res.data);
         }
       })
       .catch((err) => {
@@ -36,21 +34,19 @@ const RelatorioFinanceiro = () => {
 
   return (
     <div style={{ height: 400, width: "100%" }}>
-      {relatorio ? <ContextAPI.Provider value={{pagar, setPagar}}><DataTable relatorio={relatorio} /><FormCobranca cpf={dados.cliente_cpf} pagar={pagar} /></ContextAPI.Provider> : "Carregando..."}
+      {relatorio ? <ContextAPI.Provider value={{pagar, setPagar}}><DataTable relatorio={relatorio} /></ContextAPI.Provider> : "Carregando..."}
     </div>
   );
 };
 
-const DataTable = ({ relatorio }, {dados}) => {
+const DataTable = ({ relatorio }) => {
   const {pagar, setPagar} = useContext(ContextAPI);
-  console.log("DDDDADOS", dados)
   const handleFormatDate = (date) => {
     moment.locale("pt-br");
     return moment(date).format("DD/MM/YYYY");
   };
-
   const handleCheckStatus = (status) => {
-    if (status == 1) {
+    if (status === "Boleto Recebido") {
       return (
         <Typography
           sx={{ color: "#388e3c", fontWeight: "bold" }}
@@ -60,67 +56,65 @@ const DataTable = ({ relatorio }, {dados}) => {
         </Typography>
       );
       // return "Pago";
-    } else if (status == 2) {
+    } else if (status === "Boleto vencido") {
       return (
         <Typography
           sx={{ color: "#d32f2f", fontWeight: "bold" }}
           variant="body2"
         >
-          Não Pago
+          Vencido
         </Typography>
-      );     
+      );
+      // return "Vencido";
+    } else if (status === "Emitido o boleto") {
+      return (
+        <Typography
+          sx={{ color: "#f57c00", fontWeight: "bold" }}
+          variant="body2"
+        >
+          Pendente
+        </Typography>
+      );
+      // return "Pendente";
     }
-  }
-  
+  };
   const columns = [
     { field: "transacao_id", 
       headerName: "ID Transação", 
-      width: 260,
-      sortable: false
+      width: 130 
     },    
     {
-      field: "transacao_data",
-      headerName: "Data da Transação",
-      width: 170,
-      alignItems: 'center',
-      valueFormatter: (params) => handleFormatDate(params.value),
-      cellClassName: 'cell-align-center',
-      sortable: false,
-      
+      field: "id_boleto",
+      headerName: "ID Boleto",
+      width: 200,
+      alignItems: 'center' 
     },
     
     {
-      field: "transacao_mes",
-      headerName: "Mês da Transação",
-      width: 170,
-      // renderCell: (params) => <PopoverParcelas parcelas={params.value} />,
-      cellClassName: 'cell-align-center',
-      sortable: false
+      field: "parcelas_correspondentes",
+      headerName: "Parcelas Correspondentes",
+      width: 200,
+      renderCell: (params) => <PopoverParcelas parcelas={params.value} />,
     },
     {
-      field: "transacao_parcela",
-      headerName: "Parcela",
-      width: 120,
-      alignItems: 'center',
-      // renderCell: (params) => handleCheckStatus(params.value),
-      cellClassName: 'cell-align-center',
-      sortable: false
-    },
-    {
-      field: "transacao_recebido",
+      field: "status",
       headerName: "Status",
-      width: 120,
-      alignItems: 'center',
-      cellClassName: 'cell-align-center',
+      width: 150,
       renderCell: (params) => handleCheckStatus(params.value),
-      sortable: false
     },
     {
-      field: "transacao_valor",
+      field: "dueDate",
+      headerName: "Vencimento",
+      width: 200,
+      type: "date",
+      alignItems: 'center',
+      valueFormatter: (params) => handleFormatDate(params.value),
+    },
+    {
+      field: "value",
       headerName: "Valor",
       width: 200,
       type: "number",
-      sortable: false,
       valueFormatter: (params) =>
         parseFloat(params.value).toLocaleString("pt-br", {
           style: "currency",
@@ -136,7 +130,7 @@ const DataTable = ({ relatorio }, {dados}) => {
     <Card
       sx={{
         width: { xs: "90%", md: "100%" },
-        height: { xs: "130%", md: "180%" },
+        height: { xs: "120%", md: "110%" },
         padding: 2,
         marginTop: 3,
         background: "rgba(0, 0, 0, 0.54)",
@@ -157,16 +151,15 @@ const DataTable = ({ relatorio }, {dados}) => {
         sx={{ background: "#fff", height: "88%" }}
         rows={updatedRelatorio}
         columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
         checkboxSelection
-        disableColumnFilter
-        disableColumnMenu       
         onSelectionModelChange={(newSelection) => {
           const selectedIDs = new Set(newSelection);
           const selectedRowData = updatedRelatorio.filter((row) =>
             selectedIDs.has(row.id)
           );
+          console.log(selectedRowData);
           setPagar(selectedRowData)
         }
         }
@@ -176,9 +169,8 @@ const DataTable = ({ relatorio }, {dados}) => {
       <div key={row.id}>        
         <p>{row.id_boleto}</p>        
       </div>
-    ))} */}    
-      
-    
+    ))} */}
+    <FormCobranca pagar={pagar} />
     </>
   );
 };

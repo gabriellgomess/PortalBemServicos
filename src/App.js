@@ -71,7 +71,7 @@ function App() {
           )
           .then((res) => {
             if (res.status === 200) {
-              setRelatorio(res.data);
+              setRelatorio(res.data);             
             }
           })
           .catch((err) => {
