@@ -11,11 +11,13 @@ import Button from "@mui/material/Button";
 import "./RelatorioFinanceiro.css";
 import FormCobranca from "../FormCobranca/FormCobranca";
 import collect from "collect.js";
+import { ConnectingAirportsOutlined, PagesSharp } from "@mui/icons-material";
 
 const RelatorioFinanceiro = () => {
   const { dados, setDados } = useContext(ContextAPI);
   const [relatorio, setRelatorio] = useState([]);
   const [pagar, setPagar] = useState([]);
+  const [taxaBoleto, setTaxaBoleto] = useState(0);
 
   useEffect(() => {
     axios
@@ -34,16 +36,21 @@ const RelatorioFinanceiro = () => {
       });
   }, [dados]);
 
+
   return (
     <div style={{ height: 400, width: "100%" }}>
-      {relatorio ? <ContextAPI.Provider value={{pagar, setPagar}}><DataTable relatorio={relatorio} /><FormCobranca cpf={dados.cliente_cpf} pagar={pagar} /></ContextAPI.Provider> : "Carregando..."}
+      {relatorio ? 
+      <ContextAPI.Provider value={{pagar, setPagar, taxaBoleto, setTaxaBoleto}}>        
+        <DataTable relatorio={relatorio} />
+        <FormCobranca cpf={dados.cliente_cpf} pagar={pagar} />       
+      </ContextAPI.Provider> 
+        : "Carregando..."}
     </div>
   );
 };
 
 const DataTable = ({ relatorio }, {dados}) => {
   const {pagar, setPagar} = useContext(ContextAPI);
-  console.log("DDDDADOS", dados)
   const handleFormatDate = (date) => {
     moment.locale("pt-br");
     return moment(date).format("DD/MM/YYYY");
@@ -167,7 +174,7 @@ const DataTable = ({ relatorio }, {dados}) => {
           const selectedRowData = updatedRelatorio.filter((row) =>
             selectedIDs.has(row.id)
           );
-          setPagar(selectedRowData)
+          setPagar(selectedRowData)          
         }
         }
       />

@@ -159,7 +159,6 @@ const DataTable = ({ relatorio }) => {
           const selectedRowData = updatedRelatorio.filter((row) =>
             selectedIDs.has(row.id)
           );
-          console.log(selectedRowData);
           setPagar(selectedRowData)
         }
         }

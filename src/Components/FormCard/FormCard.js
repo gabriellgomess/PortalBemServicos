@@ -28,7 +28,6 @@ const FormCard = () => {
   };
 
   const { register, handleSubmit, reset, errors } = useForm();
-  console.log(card)
   const onSubmit = (data) => {
     setCardSend({ ...card, [data.name]: data.value });
     reset();

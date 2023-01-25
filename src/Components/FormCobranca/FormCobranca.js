@@ -1,29 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import collect from 'collect.js';
-import Switch from '@mui/material/Switch';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
 import FormCard from '../FormCard/FormCard';
 import FormBoleto from '../FormBoleto/FormBoleto';
 import "./FormCobranca.css"
+import ContextAPI from '../../ContextAPI/ContextAPI';
 
 
 const FormCobranca = (props) => {
   const [open, setOpen] = useState(false);
-  const [taxaBoleto, setTaxaBoleto] = useState(3.5);
   const [formaPagamento, setFormaPagamento] = useState('');
+  const { taxaBoleto, setTaxaBoleto } = useContext(ContextAPI);
   
 
   const handleFormaPagamento = (event) => {
@@ -37,31 +35,23 @@ const FormCobranca = (props) => {
     setOpen(false);
   };
 
-    const handleTaxaBoleto = (e) => {
-        if (e.target.checked) {
-            setTaxaBoleto(3.5)
-        } else {
-            setTaxaBoleto(0)
-        }        
-    }
   
   const aPagar = collect(props.pagar).sum('transacao_valor')+taxaBoleto;
-
   return (
     <div>
-      <Button sx={{marginTop: 3}} variant="contained" onClick={handleClickOpen}>
+        {props.pagar.length === 0?
+            <Alert sx={{marginTop: 2, width: 330}} severity="info">Selecione a(as) parcela(s) que deseja pagar</Alert>
+        : <Button sx={{marginTop: 3}} variant="contained" onClick={handleClickOpen}>
         Gerar Cobrança
-      </Button>
+        </Button>
+        }
       <Dialog open={open} onClose={handleClose} >
         <DialogTitle>Gerar Cobrança</DialogTitle>
         <DialogContent>
           <DialogContentText>            
             {(props.pagar).length>0? "Será gerada uma cobrança no valor de " + aPagar.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : "Nenhum boleto foi selecionado"}
           </DialogContentText>
-          <FormGroup> 
 
-            <FormControlLabel control={<Switch onChange={(e) => handleTaxaBoleto(e)} defaultChecked />} label="Taxa do boleto (R$3,50)" />
-        </FormGroup>
         <Box sx={{ minWidth: 120, marginTop: 3 }}>
         <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Forma de Pagamento</InputLabel>
@@ -78,7 +68,7 @@ const FormCobranca = (props) => {
         </FormControl>
         </Box>
         {formaPagamento === 10 && <FormCard />}
-        {formaPagamento === 20 && <FormBoleto cpf={props.cpf} />}
+        {formaPagamento === 20 && <FormBoleto valorBoleto={aPagar} cpf={props.cpf} />}
         </DialogContent>
         <DialogActions>
           <Button variant="outlined" onClick={handleClose}>Cancelar</Button>

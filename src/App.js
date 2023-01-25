@@ -42,16 +42,13 @@ function App() {
   useEffect(() => {
     // verificar se tem dados no localstorage
     const dadosStorage = localStorage.getItem("dados");
-    console.log(typeof dadosStorage);
     if (
       dadosStorage !== null &&
       dadosStorage !== "undefined" &&
       dadosStorage !== ""
     ) {
       setDados(JSON.parse(dadosStorage));
-      console.log("dados do localstorage");
     } else {
-      console.log("dados da api");
       axios.get(
           "https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/busca-dados.php?data=" +
             dataConvert
@@ -63,9 +60,10 @@ function App() {
         });
     }
   }, []);
-
-  useEffect(() => {
-    axios.post(
+  
+  useEffect(() => {  
+    if(dados){
+      axios.post(
             "https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/busca-info-financeiro.php?id=" +
               dados.vendas_id
           )
@@ -77,7 +75,10 @@ function App() {
           .catch((err) => {
             console.log(err);
           });
-  }, [dados]);
+    }  
+    
+
+  }, [dados?dados:[]]);
 
 
   return (
@@ -94,7 +95,8 @@ function App() {
       <ThemeProvider theme={theme}>
         <NavBar />
         <Container fixed>
-          {dados ? (
+          
+          {dados?(
             <Routes>
               <Route path="/portal" element={<Home />} />
               <Route path="/portal/cliente" element={<Cliente />} />

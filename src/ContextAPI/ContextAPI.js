@@ -1,5 +1,5 @@
-import React from "react";
+import { createContext } from "react";
 
-const ContextAPI = React.createContext();
+const ContextAPI = createContext();
 
 export default ContextAPI;
