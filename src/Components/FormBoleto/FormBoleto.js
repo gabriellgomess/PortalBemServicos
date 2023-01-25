@@ -16,7 +16,7 @@ const FormBoleto = (props) => {
   const [dadosAsaas, setDadosAsaas] = useState([]);
   const { taxaBoleto, setTaxaBoleto } = useContext(ContextAPI);
   const [dataAtual, setDataAtual] = useState();
-  const [formData, setFormData] = useState({});
+  
   
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const FormBoleto = (props) => {
       dueDate: dataAtual,
       value: props.valorBoleto,
       description: "Pagamento de mensalidade",
-      externalReference: "Mensalidade",
+      externalReference: dadosAsaas.vendas_id,
       name: dadosAsaas.cliente_nome,
       cpfCnpj: dadosAsaas.cliente_cpf,
       email: dadosAsaas.cliente_email,
@@ -80,6 +80,7 @@ const FormBoleto = (props) => {
         console.log(err);
       });
   };
+  console.log("DADOS ASAAS: ",dadosAsaas);
   return (
     <>
       <Card sx={{ marginTop: 3, padding: 3 }}>

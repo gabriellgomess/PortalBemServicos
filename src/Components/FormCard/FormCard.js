@@ -25,12 +25,14 @@ const FormCard = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCard({ ...card, [name]: value });
+    console.log(card)
   };
 
   const { register, handleSubmit, reset, errors } = useForm();
   const onSubmit = (data) => {
     setCardSend({ ...card, [data.name]: data.value });
     reset();
+    console.log(cardSend);
   };
 
   const locale = {
@@ -103,6 +105,9 @@ const FormCard = () => {
               onFocus={handleInputFocus}
               sx={{ marginBottom: 2, width: '48%' }}
             />
+            <Button type="submit" variant="contained" color="primary" sx={{marginTop: 2}}>
+              finalizar
+            </Button>
           </Box>
 
           {/* <Button
