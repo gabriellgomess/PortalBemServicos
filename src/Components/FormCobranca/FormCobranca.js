@@ -71,8 +71,7 @@ const FormCobranca = (props) => {
         {formaPagamento === 20 && <FormBoleto valorBoleto={aPagar} cpf={props.cpf} />}
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={handleClose}>Cancelar</Button>
-          <Button variant="contained" onClick={handleClose}>Gerar</Button>
+          <Button variant="outlined" onClick={handleClose}>Fechar</Button>
         </DialogActions>        
       </Dialog>
     </div>

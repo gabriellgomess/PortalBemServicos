@@ -63,9 +63,11 @@ function App() {
   
   useEffect(() => {  
     if(dados){
+      const data = {
+        vendas_id: dados.vendas_id,
+      }
       axios.post(
-            "https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/busca-info-financeiro.php?id=" +
-              dados.vendas_id
+            "https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/handlePortal.php?param=1", data
           )
           .then((res) => {
             if (res.status === 200) {
