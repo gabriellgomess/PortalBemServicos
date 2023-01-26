@@ -45,7 +45,11 @@ const FormCobranca = (props) => {
         Gerar Cobrança
         </Button>
         }
-      <Dialog open={open} onClose={handleClose} >
+      <Dialog 
+       open={open} 
+       onClose={handleClose}
+       fullScreen={window.innerWidth <= 600}
+       >
         <DialogTitle>Gerar Cobrança</DialogTitle>
         <DialogContent>
           <DialogContentText>            
