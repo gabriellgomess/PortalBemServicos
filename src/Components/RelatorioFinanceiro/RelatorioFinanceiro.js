@@ -43,7 +43,7 @@ const RelatorioFinanceiro = () => {
       {relatorio ? 
       <ContextAPI.Provider value={{pagar, setPagar, taxaBoleto, setTaxaBoleto}}>        
         <DataTable relatorio={relatorio} />
-        <FormCobranca cpf={dados.cliente_cpf} pagar={pagar} />       
+        <FormCobranca dados={dados} pagar={pagar} />       
       </ContextAPI.Provider> 
         : "Carregando..."}
     </div>
@@ -80,7 +80,7 @@ const DataTable = ({ relatorio }, {dados}) => {
     }
   }
   
-  const columns = [
+  const columns = [    
     { field: "transacao_id", 
       headerName: "ID Transação", 
       width: 260,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./FormCard.css";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
@@ -7,6 +7,9 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
+import ContextAPI from '../../ContextAPI/ContextAPI';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FormCard = () => {
   const [card, setCard] = useState({
@@ -16,7 +19,11 @@ const FormCard = () => {
     name: "",
     number: "",
   });
-  const [cardSend, setCardSend] = useState([])
+  const { taxaBoleto, setTaxaBoleto } = useContext(ContextAPI);
+  
+  useEffect(() => {
+    setTaxaBoleto(0);
+  }, []);
 
   const handleInputFocus = (e) => {
     setCard({ ...card, focus: e.target.name });
@@ -25,15 +32,24 @@ const FormCard = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCard({ ...card, [name]: value });
-    console.log(card)
   };
 
-  const { register, handleSubmit, reset, errors } = useForm();
-  const onSubmit = (data) => {
-    setCardSend({ ...card, [data.name]: data.value });
-    reset();
-    console.log(cardSend);
-  };
+  const { register } = useForm();
+
+
+  const handleSend = () => {
+    console.log("CARD SEND: ",card)
+    toast.success('Pagamento efetuado com sucesso!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  }
 
   const locale = {
     valid: "validade",
@@ -48,6 +64,18 @@ const FormCard = () => {
     <div className="cartao">
       
       <Card className="form-card" sx={{ width: 300, padding: 5, margin: '10px auto' }}>
+        <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <Cards
           locale={locale}
           cvc={card.cvc}
@@ -58,7 +86,6 @@ const FormCard = () => {
         />
         <Box
           className="container-form-card"
-          onSubmit={handleSubmit(onSubmit)}
           component="form"
           noValidate
           autoComplete="off"
@@ -105,11 +132,11 @@ const FormCard = () => {
               onFocus={handleInputFocus}
               sx={{ marginBottom: 2, width: '48%' }}
             />
-            <Button type="submit" variant="contained" color="primary" sx={{marginTop: 2}}>
+            
+          </Box>
+            <Button onClick={()=>handleSend()} type="button" variant="contained" color="primary" sx={{marginTop: 2}}>
               finalizar
             </Button>
-          </Box>
-
           {/* <Button
             sx={{ marginTop: 5 }}
             type="submit"

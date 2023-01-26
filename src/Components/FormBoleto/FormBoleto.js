@@ -11,6 +11,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { useForm } from "react-hook-form";
 import Button from "@mui/material/Button";
+import CircularProgress from '@mui/material/CircularProgress';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FormBoleto = (props) => {
   const [dadosAsaas, setDadosAsaas] = useState([]);
@@ -18,10 +21,11 @@ const FormBoleto = (props) => {
   const [dataAtual, setDataAtual] = useState();
   
   
+  
 
-  useEffect(() => {
+  useEffect(() => {    
     const data = {
-      cpf: props.cpf,
+      cpf: props.dados.cliente_cpf,
     };
     axios.post("https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/handlePortal.php?param=2",data)
       .then((res) => {
@@ -44,7 +48,6 @@ const FormBoleto = (props) => {
         : dataVencimento.getMonth() + 1;
     const ano = dataVencimento.getFullYear();
     setDataAtual(`${ano}-${mes}-${dia}`);
-   
   }, []);
   const handleTaxaBoleto = (e) => {
     if (e.target.checked) {
@@ -69,21 +72,72 @@ const FormBoleto = (props) => {
       street: dadosAsaas.cliente_endereco,
       number: dadosAsaas.cliente_numero
     };
-    axios.post("https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/handlePortal.php?param=3",data)
-      .then((res) => {
-        if (res.status === 200) {
-          console.log("RES API: ",res.data);
-        }
-      }
-      )
-      .catch((err) => {
-        console.log(err);
+    // axios.post("https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/handlePortal.php?param=3",data)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       console.log("RES API 3: ",res.data);
+    //     }
+    //   }
+    //   )
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    console.log(data);
+    toast.success('Seu boleto foi gerado!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
       });
   };
-  console.log("DADOS ASAAS: ",dadosAsaas);
+  
+  const handleCadastro = (e) => {
+    
+    const data = {
+      name: dadosAsaas.cliente_nome,
+      email: dadosAsaas.cliente_email,
+      phone: dadosAsaas.cliente_telefone,
+      mobilePhone: dadosAsaas.cliente_celular,
+      cpfCnpj: dadosAsaas.cliente_cpf,
+      postalCode: dadosAsaas.cliente_cep,
+      address: dadosAsaas.cliente_endereco,
+      addressNumber: dadosAsaas.cliente_endereco,
+      externalReference: dadosAsaas.vendas_id,
+      observations: "Cliente inserido via portal",
+    };
+    axios.post("https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/handlePortal.php?param=4",data)
+      .then((res) => {
+        if (res.status === 200) {
+          
+          console.log("RES API 4: ",res.data);
+         
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      }
+      );
+  }
+
   return (
     <>
       <Card sx={{ marginTop: 3, padding: 3 }}>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
         <Typography variant="h6" sx={{ display: "flex", alignItems: "center" }}>
           Gerar Boleto para Pagamento
         </Typography>
@@ -95,6 +149,7 @@ const FormBoleto = (props) => {
             label="Taxa do boleto (R$3,50)"
           />
         </FormGroup>
+        {dadosAsaas.customer ? (
         <form onSubmit={handleSubmit}>
           <Box
             sx={{
@@ -171,6 +226,14 @@ const FormBoleto = (props) => {
           </Box>
           <Button type="submit" variant="contained" sx={{ marginTop: 3 }}>Gerar Boleto</Button>
           </form>
+        ) :  (          
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <CircularProgress />
+            {handleCadastro()}
+          </Box>        
+          
+          
+        )}
       </Card>
     </>
   );

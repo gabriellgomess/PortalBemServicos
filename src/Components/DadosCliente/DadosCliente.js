@@ -43,6 +43,9 @@ const DadosCliente = () => {
               Endereço: {dados.cliente_endereco}
             </Typography>
             <Typography variant="body2" gutterBottom>
+              CEP: {dados.cliente_cep}
+            </Typography>
+            <Typography variant="body2" gutterBottom>
               Complemento: {dados.cliente_complemento}
             </Typography>
             <Typography variant="body2" gutterBottom>
