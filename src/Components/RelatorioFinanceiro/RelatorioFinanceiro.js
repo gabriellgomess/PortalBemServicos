@@ -179,6 +179,7 @@ const DataTable = ({ relatorio }, {dados}) => {
         }
         }
       />
+     
     </Card>
     {/* {pagar?.map((row) => (
       <div key={row.id}>        

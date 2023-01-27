@@ -18,6 +18,7 @@ import "./FormCobranca.css"
 import ContextAPI from '../../ContextAPI/ContextAPI';
 
 
+
 const FormCobranca = (props) => {
   const [open, setOpen] = useState(false);
   const [formaPagamento, setFormaPagamento] = useState('');
@@ -41,9 +42,11 @@ const FormCobranca = (props) => {
     <div>
         {props.pagar.length === 0?
             <Alert sx={{marginTop: 2, width: 330}} severity="info">Selecione a(as) parcela(s) que deseja pagar</Alert>
-        : <Button sx={{marginTop: 3}} variant="contained" onClick={handleClickOpen}>
+        : 
+          <Button sx={{marginTop: 3}} variant="contained" onClick={handleClickOpen}>
         Gerar Cobrança
-        </Button>
+        </Button>      
+      
         }
       <Dialog 
        open={open} 
@@ -71,7 +74,7 @@ const FormCobranca = (props) => {
             </Select>
         </FormControl>
         </Box>
-        {formaPagamento === 10 && <FormCard />}
+        {formaPagamento === 10 && <FormCard dados={props.dados} />}
         {formaPagamento === 20 && <FormBoleto valorBoleto={aPagar} dados={props.dados} />}
         </DialogContent>
         <DialogActions>

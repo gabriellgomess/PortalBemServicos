@@ -11,7 +11,7 @@ import ContextAPI from '../../ContextAPI/ContextAPI';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const FormCard = () => {
+const FormCard = (props) => {
   const [card, setCard] = useState({
     cvc: "",
     expiry: "",
