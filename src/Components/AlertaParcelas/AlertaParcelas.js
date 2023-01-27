@@ -24,7 +24,7 @@ const AlertaParcelas = () => {
         return (
             <Alert sx={{marginTop: 3}} severity="error">
               <AlertTitle>Atenção</AlertTitle>
-              Você tem <strong>{resultLength}</strong> {resultLength > 1 ? 'parcelas vencidas' : 'parcela vencida'} clique <Link href="/portal/financeiro">aqui</Link> para ver mais detalhes
+              Você tem <strong>{resultLength}</strong> {resultLength > 1 ? 'parcelas vencidas' : 'parcela vencida'} clique <Link to="/portal/financeiro">aqui</Link> para ver mais detalhes
             </Alert>
            
           );
