@@ -8,10 +8,9 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import Button from "@mui/material/Button";
-import "./RelatorioFinanceiro.css";
 import FormCobranca from "../FormCobranca/FormCobranca";
 
-const RelatorioFinanceiro = () => {
+const RelatorioBoleto = () => {
   const { dados, setDados } = useContext(ContextAPI);
   const [relatorio, setRelatorio] = useState([]);
   const [pagar, setPagar] = useState([]);
@@ -163,6 +162,7 @@ const DataTable = ({ relatorio }) => {
         }
         }
       />
+    
     </Card>
     {/* {pagar?.map((row) => (
       <div key={row.id}>        
@@ -174,4 +174,4 @@ const DataTable = ({ relatorio }) => {
   );
 };
 
-export default RelatorioFinanceiro;
+export default RelatorioBoleto;

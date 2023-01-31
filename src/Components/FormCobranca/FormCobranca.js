@@ -58,7 +58,6 @@ const FormCobranca = (props) => {
           <DialogContentText>            
             {(props.pagar).length>0? "Será gerada uma cobrança no valor de " + aPagar.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : "Nenhum boleto foi selecionado"}
           </DialogContentText>
-
         <Box sx={{ minWidth: 120, marginTop: 3 }}>
         <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Forma de Pagamento</InputLabel>

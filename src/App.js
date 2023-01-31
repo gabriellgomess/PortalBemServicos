@@ -49,7 +49,8 @@ function App() {
     ) {
       setDados(JSON.parse(dadosStorage));
     } else {
-      axios.get(
+      axios
+        .get(
           "https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/busca-dados.php?data=" +
             dataConvert
         )
@@ -60,28 +61,49 @@ function App() {
         });
     }
   }, []);
-  
-  useEffect(() => {  
-    if(dados){
+
+  useEffect(() => {
+    if (dados && dados.vendas_id) {
       const data = {
         vendas_id: dados.vendas_id,
-      }
-      axios.post(
-            "https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/handlePortal.php?param=1", data
-          )
-          .then((res) => {
-            if (res.status === 200) {
-              setRelatorio(res.data);             
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-    }  
-    
+      };
+      axios
+        .post(
+          "https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/handlePortal.php?param=1",
+          data
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            setRelatorio(res.data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [dados ? dados : []]);
 
-  }, [dados?dados:[]]);
-
+  useEffect(() => {
+    if (dados && dados.vendas_id) {
+      const data = {
+        vendas_id: dados.vendas_id,
+      };
+      axios
+        .post(
+          "https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/handlePortal.php?param=1",
+          data
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            let result = res.data;
+            setRelatorio(result);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [dados ? dados : []]);
 
   return (
     <ContextAPI.Provider
@@ -97,8 +119,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <NavBar />
         <Container fixed>
-          
-          {dados?(
+          {dados ? (
             <Routes>
               <Route path="/portal" element={<Home />} />
               <Route path="/portal/cliente" element={<Cliente />} />

@@ -8,44 +8,67 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import "./RelatorioFinanceiro.css";
 import FormCobranca from "../FormCobranca/FormCobranca";
 import collect from "collect.js";
 import { ConnectingAirportsOutlined, PagesSharp } from "@mui/icons-material";
+import RelatorioBoleto from "../RelatorioBoletos/RelatorioBoleto";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 
 const RelatorioFinanceiro = () => {
   const { dados, setDados } = useContext(ContextAPI);
-  const [relatorio, setRelatorio] = useState([]);
+  const {relatorio, setRelatorio} = useContext(ContextAPI);
   const [pagar, setPagar] = useState([]);
   const [taxaBoleto, setTaxaBoleto] = useState(0);
+  const [parcelaPaga, setParcelaPaga] = useState([]);
+
+
 
   useEffect(() => {
-    const data = {
-      vendas_id: dados.vendas_id,
-    }
-    axios.post(
-          "https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/handlePortal.php?param=1", data
-        )
-      .then((res) => {
-        if (res.status === 200) {
-          let result = res.data.filter(item => item.transacao_recebido == 2)
-          setRelatorio(result);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [dados]);
+    handleLastParcelaPaga(relatorio);
+  }, [relatorio]);
 
+  // Última parcela paga
+  const handleLastParcelaPaga = (relatorio) => {
+    console.log("Relatorio ", relatorio);
+    let parcelas = collect(relatorio);
+    let ultimaParcelaPaga = parcelas
+      .where("transacao_recebido", "1")
+      .sortBy(function (item) {
+        return new Date(item.transacao_data);
+      })
+      .last();
+    setParcelaPaga(ultimaParcelaPaga);
+  }
+
+  const handleFormatDate = (date) => {
+    moment.locale("pt-br");
+    return moment(date).format("DD/MM/YYYY");
+  };
+  
 
   return (
     <div style={{ height: 400, width: "100%" }}>
       {relatorio ? 
-      <ContextAPI.Provider value={{pagar, setPagar, taxaBoleto, setTaxaBoleto}}>        
+      <ContextAPI.Provider value={{pagar, setPagar, taxaBoleto, setTaxaBoleto}}>
+        {parcelaPaga?      
+        <Alert sx={{marginTop: 2}} severity="success">
+          <AlertTitle><strong>Última parcela paga</strong></AlertTitle>
+          <strong>{parcelaPaga.transacao_id}</strong> - Foi paga em <strong>{handleFormatDate(parcelaPaga.transacao_data)}</strong> - no valor de <strong>{parseFloat(parcelaPaga.transacao_valor).toLocaleString("pt-br", {
+          style: "currency",
+          currency: "BRL",
+        })}</strong>
+        </Alert>
+        : null}     
         <DataTable relatorio={relatorio} />
-        <FormCobranca dados={dados} pagar={pagar} />       
+        <Box sx={{ display: "flex", justifyContent: "space-between", flexWrap: 'wrap' }}>
+        <FormCobranca dados={dados} pagar={pagar} />        
+        </Box>       
       </ContextAPI.Provider> 
-        : "Carregando..."}
+        : "Carregando..."}        
     </div>
   );
 };
@@ -58,7 +81,7 @@ const DataTable = ({ relatorio }, {dados}) => {
   };
 
   const handleCheckStatus = (status) => {
-    if (status == 1) {
+    if (status === 1) {
       return (
         <Typography
           sx={{ color: "#388e3c", fontWeight: "bold" }}
@@ -136,37 +159,19 @@ const DataTable = ({ relatorio }, {dados}) => {
         }),
     },
   ];
-  let updatedRelatorio = relatorio.map((row, index) => {
+  let updatedRelatorio = (relatorio.filter(item => item.transacao_recebido == 2)).map((row, index) => {
     return { ...row, id: index };
   });
   return (
     <>
-    <Card
-      sx={{
-        width: { xs: "90%", md: "100%" },
-        height: { xs: "130%", md: "180%" },
-        padding: 2,
-        marginTop: 3,
-        background: "rgba(0, 0, 0, 0.54)",
-      }}
-    >
-      <Typography
-        sx={{ color: "#fff", display: "flex", alignItems: "center" }}
-        variant="h6"
-        component="div"
-        gutterBottom
-      >
-        Relatório Financeiro <AttachMoneyIcon sx={{ color: "#fff" }} />
-      </Typography>
-
       <DataGrid
       // Traduzir para português BR
         localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
-        sx={{ background: "#fff", height: "88%" }}
+        sx={{ background: "#fff", marginTop: 2, height: '100%' }}
         rows={updatedRelatorio}
         columns={columns}
         pageSize={10}
-        rowsPerPageOptions={[10]}
+        rowsPerPageOptions={[8]}
         checkboxSelection
         disableColumnFilter
         disableColumnMenu       
@@ -180,14 +185,6 @@ const DataTable = ({ relatorio }, {dados}) => {
         }
       />
      
-    </Card>
-    {/* {pagar?.map((row) => (
-      <div key={row.id}>        
-        <p>{row.id_boleto}</p>        
-      </div>
-    ))} */}    
-      
-    
     </>
   );
 };

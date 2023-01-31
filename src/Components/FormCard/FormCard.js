@@ -7,9 +7,11 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import ContextAPI from '../../ContextAPI/ContextAPI';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import ContextAPI from "../../ContextAPI/ContextAPI";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { SliderValueLabelUnstyled } from "@mui/base";
+var valid = require("card-validator");
 
 const FormCard = (props) => {
   const [card, setCard] = useState({
@@ -20,7 +22,8 @@ const FormCard = (props) => {
     number: "",
   });
   const { taxaBoleto, setTaxaBoleto } = useContext(ContextAPI);
-  
+  const [cardExpiry, setCardExpiry] = useState("");
+
   useEffect(() => {
     setTaxaBoleto(0);
   }, []);
@@ -31,15 +34,24 @@ const FormCard = (props) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCard({ ...card, [name]: value });
+    // remover a / do expiry antes de salvar no state
+    if (name === "expiry") {
+      let expiry = (e.target.value).split("/").join("");
+      setCard({ ...card, [name]: expiry });
+      return;
+    }else{
+      setCard({ ...card, [name]: value });
+    }
+    
+    
+    console.log("CARD: ", card);
   };
 
   const { register } = useForm();
 
-
   const handleSend = () => {
-    console.log("CARD SEND: ",card)
-    toast.success('Pagamento efetuado com sucesso!', {
+    console.log("CARD SEND: ", card);
+    toast.success("Pagamento efetuado com sucesso!", {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -48,8 +60,8 @@ const FormCard = (props) => {
       draggable: true,
       progress: undefined,
       theme: "light",
-      });
-  }
+    });
+  };
 
   const locale = {
     valid: "validade",
@@ -60,23 +72,55 @@ const FormCard = (props) => {
     number: "número do cartão",
   };
 
+  const handleExpiryChange = (event) => {
+    const value = event.target.value;
+    let formattedValue = value
+      .replace(/\D/g, "")
+      .slice(0, 4)
+      .replace(/(\d{2})/, "$1/");
+    setCardExpiry(formattedValue);
+    if(event.target.name === 'expiry'){
+      let expiry = (event.target.value).split("/").join("")
+      handleInputChange(expiry)
+    }
+  };
+
+  const handleValidateNumber = () => {
+    const cardNumberValidation = valid.number(card.number);
+    if (!cardNumberValidation.isValid && card.number.length > 0) {
+      toast.error("Número de cartão inválido!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+  };
+
   return (
     <div className="cartao">
-      
-      <Card className="form-card" sx={{ width: 300, padding: 5, margin: '10px auto' }}>
+      <Card
+        className="form-card"
+        sx={{ width: 300, padding: 5, margin: "10px auto" }}
+      >
         <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-      <Cards
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+        <Cards
           locale={locale}
           cvc={card.cvc}
           expiry={card.expiry}
@@ -89,7 +133,7 @@ const FormCard = (props) => {
           component="form"
           noValidate
           autoComplete="off"
-          sx={{width: '100%', marginTop: 3}}
+          sx={{ width: "100%", marginTop: 3 }}
         >
           <TextField
             type="tel"
@@ -99,7 +143,8 @@ const FormCard = (props) => {
             variant="outlined"
             onChange={handleInputChange}
             onFocus={handleInputFocus}
-            sx={{ marginBottom: 2, width: '100%' }}
+            onBlur={handleValidateNumber}
+            sx={{ marginBottom: 2, width: "100%" }}
           />
           <TextField
             type="text"
@@ -109,18 +154,19 @@ const FormCard = (props) => {
             variant="outlined"
             onChange={handleInputChange}
             onFocus={handleInputFocus}
-            sx={{ marginBottom: 2, width: '100%' }}
+            sx={{ marginBottom: 2, width: "100%" }}
           />
-          <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <TextField
               type="tel"
               {...register("expiry")}
               id="expiry"
               label="Validade"
               variant="outlined"
-              onChange={handleInputChange}
+              value={cardExpiry}
+              onChange={handleExpiryChange}
               onFocus={handleInputFocus}
-              sx={{ marginBottom: 2, width: '48%' }}
+              sx={{ marginBottom: 2, width: "48%" }}
             />
             <TextField
               type="tel"
@@ -130,13 +176,18 @@ const FormCard = (props) => {
               variant="outlined"
               onChange={handleInputChange}
               onFocus={handleInputFocus}
-              sx={{ marginBottom: 2, width: '48%' }}
+              sx={{ marginBottom: 2, width: "48%" }}
             />
-            
           </Box>
-            <Button onClick={()=>handleSend()} type="button" variant="contained" color="primary" sx={{marginTop: 2}}>
-              finalizar
-            </Button>
+          <Button
+            onClick={() => handleSend()}
+            type="button"
+            variant="contained"
+            color="primary"
+            sx={{ marginTop: 2 }}
+          >
+            finalizar
+          </Button>
           {/* <Button
             sx={{ marginTop: 5 }}
             type="submit"
