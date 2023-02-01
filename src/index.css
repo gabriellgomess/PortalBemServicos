@@ -17,3 +17,10 @@ a{
   color: rgb(35, 34, 34);
   font-weight: bolder;
 }
+
+@font-face {
+  font-family: 'Lola';
+  src: url('fonts/Signika.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

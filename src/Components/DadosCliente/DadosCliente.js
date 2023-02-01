@@ -3,6 +3,7 @@ import "./DadosCliente.css";
 import ContextAPI from "../../ContextAPI/ContextAPI";
 
 import Card from "@mui/material/Card";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import PersonIcon from '@mui/icons-material/Person';
 
@@ -15,49 +16,18 @@ const DadosCliente = () => {
 
   return (
     <>
-      {dados.cliente_nome ? (
-                 
-          <Card          
-            sx={{
-              width: { xs: "100%", md: 375 },
-              padding: 2,
-              marginTop: 3,
-            }}
-          >
-            <Typography variant="h6" component="div" gutterBottom sx={{display: 'flex', alignItems: 'center'}}>
-              <PersonIcon /> Dados do Cliente
+      {dados.cliente_nome ? (                 
+          <Box sx={{color: '#fff'}}>           
+            <Typography className="nome-cliente" variant="h6" component="div" gutterBottom >
+              Olá <strong>{dados.cliente_nome}</strong>
             </Typography>
-            <Typography variant="h6" component="div" gutterBottom>
-              {dados.cliente_nome}
+            <Typography variant="h6" gutterBottom>
+              {dados.vendas_num_apolice? `${dados.vendas_num_apolice}` : '000000000000'}
             </Typography>
-            <Typography variant="body2" gutterBottom>
-              Nº Apólice: {handleFormatCPF(dados.vendas_num_apolice)}
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              E-mail: {dados.cliente_email}
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              Telefone: {dados.cliente_telefone}
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              Endereço: {dados.cliente_endereco}
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              CEP: {dados.cliente_cep}
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              Complemento: {dados.cliente_complemento}
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              Bairro: {dados.cliente_bairro}
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              Cidade: {dados.cliente_cidade}
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              Estado: {dados.cliente_uf}
-            </Typography>
-          </Card>
+            <Typography variant="h6" gutterBottom>
+              Plano <strong>Master</strong>
+            </Typography>            
+          </Box>
         
       ) : (
         <h1>Dados inconsistentes</h1>

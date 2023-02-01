@@ -11,6 +11,8 @@ import Cliente from "./Pages/Cliente/Cliente";
 import Financeiro from "./Pages/Financeiro/Financeiro";
 import NoPage from "./Components/NoPage/NoPage";
 import Cartao from "./Pages/Cartao/Cartao";
+import collect from "collect.js";
+import Lola from "./fonts/fs_lola.ttf";
 
 function App() {
   const location = useLocation();
@@ -21,6 +23,9 @@ function App() {
   const [dados, setDados] = useState([]);
   const [statusParcelas, setStatusParcelas] = useState(1);
   const [relatorio, setRelatorio] = useState([]);
+  const [selecionadas, setSelecionadas] = useState([]);
+  const [parcelaPaga, setParcelaPaga] = useState([]);
+  const [parcelasNaoPagas, setParcelasNaoPagas] = useState([]);
 
   const theme = createTheme({
     palette: {
@@ -35,6 +40,19 @@ function App() {
       },
       text: {
         primary: "#666",
+      },
+    },
+    typography: {
+      fontFamily: "Lola",
+    },
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: `
+          @font-face {
+            font-family: 'Lola';
+            src: url(${Lola}) format('truetype');
+          }
+        `,
       },
     },
   });
@@ -105,6 +123,26 @@ function App() {
     }
   }, [dados ? dados : []]);
 
+  useEffect(() => {
+    let parcelasNaoPagas = relatorio
+      .filter((item) => item.transacao_recebido == 2)
+      .map((row, index) => {
+        return { ...row, id: index };
+      });
+    setParcelasNaoPagas(parcelasNaoPagas);
+
+    let parcelas = collect(relatorio);
+    let ultimaParcelaPaga = parcelas
+      .where("transacao_recebido", "1")
+      .sortBy(function (item) {
+        return new Date(item.transacao_data);
+      })
+      .last();
+    setParcelaPaga(ultimaParcelaPaga);
+
+  }, [relatorio]);
+  
+  console.log("Selecionada: ", selecionadas);
   return (
     <ContextAPI.Provider
       value={{
@@ -114,6 +152,12 @@ function App() {
         setStatusParcelas,
         relatorio,
         setRelatorio,
+        selecionadas,
+        setSelecionadas,
+        parcelaPaga,
+        setParcelaPaga,
+        parcelasNaoPagas,
+        setParcelasNaoPagas,
       }}
     >
       <ThemeProvider theme={theme}>
@@ -121,7 +165,7 @@ function App() {
         <Container fixed>
           {dados ? (
             <Routes>
-              <Route path="/portal" element={<Home />} />
+              <Route path="/portal" element={<Home  sx={{fontFamily: 'Lola'}} />} />
               <Route path="/portal/cliente" element={<Cliente />} />
               <Route path="/portal/financeiro" element={<Financeiro />} />
               <Route path="/portal/cartao" element={<Cartao />} />

@@ -1,0 +1,7 @@
+.nome-cliente{
+    text-transform: lowercase;
+}
+
+.nome-cliente{
+    text-transform: capitalize;
+}

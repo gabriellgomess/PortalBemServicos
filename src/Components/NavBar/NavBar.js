@@ -13,7 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import './NavBar.css';
-import Logo from '../../assets/Logo_rmvbg.png';
+import Logo from '../../assets/logo_branco.png';
+import Elipse from '../../assets/elipse_header.png';
 import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -37,14 +38,14 @@ const NavBar = () => {
   };
 
   return (
-    <AppBar className='AppBar' position="static">
+    <AppBar elevation={0} className='AppBar' position="static">
+      <img src={Elipse} alt="Header" className='elipse-header' />
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters>        
           
           <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
             <img className='img-logo' width={80} src={Logo} alt="Logo" />
-          </Box>
-          
+          </Box>          
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -99,10 +100,10 @@ const NavBar = () => {
               
             </Menu>
           </Box>          
-          <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
-            <img className='img-logo' width={60} src={Logo} alt="Logo" />
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, width: '100%', justifyContent: 'center'}}>
+            <img className='img-logo' width={100} src={Logo} alt="Logo" />
           </Box>
-          <Typography
+          {/* <Typography
             variant="h6"
             noWrap
             component="a"
@@ -119,7 +120,7 @@ const NavBar = () => {
             }}
           >
           APOBEM
-          </Typography>
+          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Link to="/portal">
                 <MenuItem onClick={handleCloseNavMenu}>
