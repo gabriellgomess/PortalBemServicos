@@ -10,10 +10,9 @@ import Card from "@mui/material/Card";
 import ContextAPI from "../../ContextAPI/ContextAPI";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { SliderValueLabelUnstyled } from "@mui/base";
 var valid = require("card-validator");
 
-const FormCard = (props) => {
+const FormCard = () => {
   const [card, setCard] = useState({
     cvc: "",
     expiry: "",
@@ -109,7 +108,7 @@ const FormCard = (props) => {
         sx={{ width: 300, padding: 5, margin: "10px auto" }}
       >
         <ToastContainer
-          position="top-center"
+          position="bottom-center"
           autoClose={5000}
           hideProgressBar={false}
           newestOnTop={false}
@@ -187,15 +186,7 @@ const FormCard = (props) => {
             sx={{ marginTop: 2 }}
           >
             finalizar
-          </Button>
-          {/* <Button
-            sx={{ marginTop: 5 }}
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
-            finalizar
-          </Button> */}
+          </Button>         
         </Box>
       </Card>
     </div>

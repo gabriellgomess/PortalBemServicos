@@ -3,14 +3,20 @@ import DadosCliente from "../../Components/DadosCliente/DadosCliente";
 import AlertaParcelas from "../../Components/AlertaParcelas/AlertaParcelas";
 import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { CardActionArea } from '@mui/material';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import IconBeneficios from "../../assets/icon-beneficios.png";
 import IconFinanceiro from "../../assets/icon-financeiro.png";
+import Elipse from '../../assets/elipse_header.png';
+import './Home.css';
 
 const Home = () => {
   return (
-    <>
+    <div className="home">
+    <img src={Elipse} alt="Header" className='elipse-header' />
       <DadosCliente />
       <Box
         sx={{
@@ -70,8 +76,26 @@ const Home = () => {
           </Card>
         </Link>
       </Box>
-      {/* <AlertaParcelas /> */}
-    </>
+      <AlertaParcelas />
+      <Card elevation={3} sx={{ maxWidth: 345, marginTop: 3, backgroundColor: '#E7334A', color: '#fff', textAlign: 'center', borderRadius: '17px', display: 'flex', justifyContent: 'center', alignItems: 'center'    }}>
+      <CardActionArea>        
+        <CardContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <Typography gutterBottom variant="h3" component="div" sx={{width: '70%', lineHeight: '38px', marginTop: 1}}>
+            Faça o Upgrade
+          </Typography>          
+        </CardContent>
+      </CardActionArea>
+    </Card>
+    <Card elevation={3} sx={{ maxWidth: 345, marginTop: 3, backgroundColor: '#F28E22', color: '#fff', textAlign: 'center', borderRadius: '17px', display: 'flex', justifyContent: 'center', alignItems: 'center'   }}>
+      <CardActionArea>        
+        <CardContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <Typography gutterBottom variant="h3" component="div" sx={{width: '70%', lineHeight: '38px', marginTop: 1}}>
+            Fale Conosco
+          </Typography>          
+        </CardContent>
+      </CardActionArea>
+    </Card>
+    </div>
   );
 };
 

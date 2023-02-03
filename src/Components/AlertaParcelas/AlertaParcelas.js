@@ -1,52 +1,51 @@
-import React, {useState, useContext, useEffect} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
-import { Link } from 'react-router-dom';
+import CheckIcon from "@mui/icons-material/Check";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+import Box from "@mui/material/Box";
+import { Link } from "react-router-dom";
 import ContextAPI from "../../ContextAPI/ContextAPI";
 import axios from "axios";
-import './AlertaParcelas.css'
-
+import "./AlertaParcelas.css";
 
 const AlertaParcelas = () => {
-    const { statusParcelas, setStatusParcelas } = useContext(ContextAPI);
-    const { relatorio, setRelatorio } = useContext(ContextAPI);
-    const { dados, setDados } = useContext(ContextAPI);
+  const { statusParcelas, setStatusParcelas } = useContext(ContextAPI);
+  const { relatorio, setRelatorio } = useContext(ContextAPI);
+  const { dados, setDados } = useContext(ContextAPI);
 
-    useEffect(() => {        
-          handleAlertaParcelas()
-          
-      }, []);
-      
-    const handleAlertaParcelas = () => { 
-       let result = relatorio.filter(item => item.transacao_recebido == 2)
-       
-       let resultLength = result.length
-       if(resultLength > 0){
-        return (
-            <Alert sx={{marginTop: 3}} severity="error">
-              <AlertTitle>Atenção</AlertTitle>
-              Você tem <strong>{resultLength}</strong> {resultLength > 1 ? 'parcelas vencidas' : 'parcela vencida'} clique <Link to="/portal/financeiro" className="link_alert">aqui</Link> para ver mais detalhes
-            </Alert>
-           
-          );
-         }else{
-            return (
-                <Alert sx={{marginTop: 3}} severity="success">
-                <AlertTitle>Parabéns</AlertTitle>
-                Você não tem parcelas vencidas
-                </Alert>
-            );
-        }
-    
+  useEffect(() => {
+    handleAlertaParcelas();
+  }, []);
+
+  const handleAlertaParcelas = () => {
+    let result = relatorio.filter((item) => item.transacao_recebido == 2);
+
+    let resultLength = result.length;
+    if (resultLength > 0) {
+      return (
+        <Link to="/portal/financeiro">
+        <Alert elevation={3} className="alert-nao-pago" icon={false} sx={{ marginTop: 3, backgroundColor: '#FFC4BF', borderRadius: '13px' }} severity="error">
+          <Box sx={{width: 'fit-content'}}>
+            <WarningAmberIcon sx={{ fontSize: 40, color: '#E7334A' }} />
+          </Box>
+          <Box sx={{marginLeft: 1}}>
+            Você tem <strong>{resultLength}</strong> {resultLength > 1 ? "parcelas vencidas" : "parcela vencida"} clique aqui para ver mais detalhes
+          </Box>
+        </Alert>
+        </Link>
+      );
+    } else {
+      return (
+        <Alert sx={{ marginTop: 3 }} severity="success">
+          <AlertTitle>Parabéns</AlertTitle>
+          Seu plano está em dia!
+        </Alert>
+      );
     }
+  };
 
-   
-   
-    
-    return (
-        handleAlertaParcelas()
-        
-    );
-}
+  return handleAlertaParcelas();
+};
 
 export default AlertaParcelas;

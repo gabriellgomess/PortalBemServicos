@@ -84,7 +84,7 @@ const FormBoleto = (props) => {
     //   });
     console.log(data);
     toast.success('Seu boleto foi gerado!', {
-      position: "top-right",
+      position: "bottom-center",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,

@@ -9,6 +9,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Cliente from "./Pages/Cliente/Cliente";
 import Financeiro from "./Pages/Financeiro/Financeiro";
+import Checkout from "./Pages/Checkout/Checkout";
 import NoPage from "./Components/NoPage/NoPage";
 import Cartao from "./Pages/Cartao/Cartao";
 import collect from "collect.js";
@@ -26,6 +27,7 @@ function App() {
   const [selecionadas, setSelecionadas] = useState([]);
   const [parcelaPaga, setParcelaPaga] = useState([]);
   const [parcelasNaoPagas, setParcelasNaoPagas] = useState([]);
+  const [taxaBoleto, setTaxaBoleto] = useState(0);
 
   const theme = createTheme({
     palette: {
@@ -158,17 +160,20 @@ function App() {
         setParcelaPaga,
         parcelasNaoPagas,
         setParcelasNaoPagas,
+        taxaBoleto,
+        setTaxaBoleto,
       }}
     >
       <ThemeProvider theme={theme}>
         <NavBar />
-        <Container fixed>
+        <Container sx={{marginTop: '78px', position: 'absolute', maxWidth: '500px'}} fixed>
           {dados ? (
             <Routes>
               <Route path="/portal" element={<Home  sx={{fontFamily: 'Lola'}} />} />
               <Route path="/portal/cliente" element={<Cliente />} />
               <Route path="/portal/financeiro" element={<Financeiro />} />
               <Route path="/portal/cartao" element={<Cartao />} />
+              <Route path="/portal/checkout" element={<Checkout />} />
             </Routes>
           ) : (
             <NoPage />

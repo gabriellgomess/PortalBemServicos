@@ -14,7 +14,6 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import './NavBar.css';
 import Logo from '../../assets/logo_branco.png';
-import Elipse from '../../assets/elipse_header.png';
 import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -38,8 +37,7 @@ const NavBar = () => {
   };
 
   return (
-    <AppBar elevation={0} className='AppBar' position="static">
-      <img src={Elipse} alt="Header" className='elipse-header' />
+    <AppBar sx={{backgroundColor: '#ee6d30', position: 'fixed', zIndex: 10}} elevation={0} className='AppBar' position="static">      
       <Container maxWidth="xl">
         <Toolbar disableGutters>        
           

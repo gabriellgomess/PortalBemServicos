@@ -1,3 +1,6 @@
 .link_alert{
     color: #e8294c
 }
+.alert-nao-pago>.MuiAlert-message{
+    display: flex;
+}
