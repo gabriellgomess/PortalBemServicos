@@ -77,7 +77,7 @@ const Home = () => {
         </Link>
       </Box>
       <AlertaParcelas />
-      <Card elevation={3} sx={{ maxWidth: 345, marginTop: 3, backgroundColor: '#E7334A', color: '#fff', textAlign: 'center', borderRadius: '17px', display: 'flex', justifyContent: 'center', alignItems: 'center'    }}>
+      <Card elevation={3} sx={{ maxWidth: 345, backgroundColor: '#E7334A', color: '#fff', textAlign: 'center', borderRadius: '17px', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '20px auto'    }}>
       <CardActionArea>        
         <CardContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
           <Typography gutterBottom variant="h3" component="div" sx={{width: '70%', lineHeight: '38px', marginTop: 1}}>
@@ -86,7 +86,7 @@ const Home = () => {
         </CardContent>
       </CardActionArea>
     </Card>
-    <Card elevation={3} sx={{ maxWidth: 345, marginTop: 3, backgroundColor: '#F28E22', color: '#fff', textAlign: 'center', borderRadius: '17px', display: 'flex', justifyContent: 'center', alignItems: 'center'   }}>
+    <Card elevation={3} sx={{ maxWidth: 345, backgroundColor: '#F28E22', color: '#fff', textAlign: 'center', borderRadius: '17px', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '20px auto'    }}>
       <CardActionArea>        
         <CardContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
           <Typography gutterBottom variant="h3" component="div" sx={{width: '70%', lineHeight: '38px', marginTop: 1}}>

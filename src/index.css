@@ -24,3 +24,7 @@ a{
   font-weight: normal;
   font-style: normal;
 }
+
+*{
+  font-family: 'Lola' !important;
+}

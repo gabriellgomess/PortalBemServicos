@@ -30,6 +30,9 @@ const CardParcelas = (props) => {
       );
     }
   };
+  useEffect(() => {
+    setSelecionadas([]);
+  }, []);
 
   const handleChange = (event) => {
     if (event.target.checked) {

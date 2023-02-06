@@ -80,6 +80,7 @@ function App() {
           localStorage.setItem("dados", JSON.stringify(res.data[0]));
         });
     }
+    
   }, []);
 
   useEffect(() => {
@@ -165,11 +166,11 @@ function App() {
       }}
     >
       <ThemeProvider theme={theme}>
-        <NavBar />
-        <Container sx={{marginTop: '78px', position: 'absolute', maxWidth: '500px'}} fixed>
+        <NavBar sx={{fontFamily: 'Lola'}} />
+        <Container sx={{marginTop: '78px', position: 'absolute', maxWidth: '415px', fontFamily: 'Lola'}} fixed>
           {dados ? (
             <Routes>
-              <Route path="/portal" element={<Home  sx={{fontFamily: 'Lola'}} />} />
+              <Route path="/portal" element={<Home />} />
               <Route path="/portal/cliente" element={<Cliente />} />
               <Route path="/portal/financeiro" element={<Financeiro />} />
               <Route path="/portal/cartao" element={<Cartao />} />
