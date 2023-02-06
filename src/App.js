@@ -28,6 +28,7 @@ function App() {
   const [parcelaPaga, setParcelaPaga] = useState([]);
   const [parcelasNaoPagas, setParcelasNaoPagas] = useState([]);
   const [taxaBoleto, setTaxaBoleto] = useState(0);
+  const [openAlert, setOpenAlert] = useState(true);
 
   const theme = createTheme({
     palette: {
@@ -163,6 +164,8 @@ function App() {
         setParcelasNaoPagas,
         taxaBoleto,
         setTaxaBoleto,
+        openAlert,
+        setOpenAlert,
       }}
     >
       <ThemeProvider theme={theme}>
