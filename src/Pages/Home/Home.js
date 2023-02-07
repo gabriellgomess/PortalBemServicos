@@ -27,20 +27,21 @@ const Home = () => {
   // state responsável por abrir o alerta apenas na primeira vez que o usuário entrar na home
   const { openAlert, setOpenAlert } = useContext(ContextAPI);
 
-  // função para abrir o modal
+  // função para abrir o modal e setar que o mesmo já foi aberto
   const handleClickOpen = () => {
     setOpen(true);
+    setOpenAlert(false);
   };
-  // função para fechar o modal
+  // função para fechar o modal e setar que o mesmo já foi aberto
   const handleClose = () => {
     setOpen(false);
+    setOpenAlert(false);
   };
   // função para filtrar o relatório e verificar se tem parcela não paga e também verifica se o alerta já foi aberto
   useEffect(() => {
     const result = relatorio.filter((item) => item.transacao_recebido == 2);
     if (result.length > 0 && openAlert == true) {
-      handleClickOpen();
-      setOpenAlert(false);
+      handleClickOpen();      
     }
   }, [relatorio]);
 
@@ -58,7 +59,7 @@ const Home = () => {
           margin: "0 auto",
         }}
       >
-        <Link to="" className="link_alert">
+        <Link to="/portal/beneficios" className="link_alert">
           <Card
             elevation={3}
             sx={{
@@ -85,7 +86,7 @@ const Home = () => {
             </Typography>
           </Card>
         </Link>
-        <Link to="/portal/financeiro" className="link_alert">
+        <Link to="/portal/financeiro">
           <Card
             elevation={3}
             sx={{
@@ -111,6 +112,7 @@ const Home = () => {
       {/* Componente que mostra um alerta fixo na tela dizendo se tem parcelas não pagas e a quantidade ou se está tudo em dia */}
       <AlertaParcelas />
       {/* Componente que abriga os cards 'Faça o Upgrade' e 'Fale Conosco' */}
+      <Link to="/portal/upgrade" className="link_alert">
       <Card
         elevation={3}
         sx={{
@@ -144,6 +146,8 @@ const Home = () => {
           </CardContent>
         </CardActionArea>
       </Card>
+      </Link>
+      <Link to="/portal/fale-conosco">
       <Card
         elevation={3}
         sx={{
@@ -177,6 +181,7 @@ const Home = () => {
           </CardContent>
         </CardActionArea>
       </Card>
+      </Link>
       {/* Componente Dialog (Modal) que será aberto no primeiro render da Home, caso haja parcelas em aberto */}
       <Dialog
         open={open}

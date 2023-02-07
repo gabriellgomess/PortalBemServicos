@@ -1,18 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
-import CheckIcon from "@mui/icons-material/Check";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import ContextAPI from "../../ContextAPI/ContextAPI";
-import axios from "axios";
 import "./AlertaParcelas.css";
 
 const AlertaParcelas = () => {
-  const { statusParcelas, setStatusParcelas } = useContext(ContextAPI);
   const { relatorio, setRelatorio } = useContext(ContextAPI);
-  const { dados, setDados } = useContext(ContextAPI);
+
 
   useEffect(() => {
     handleAlertaParcelas();
@@ -44,7 +41,6 @@ const AlertaParcelas = () => {
       );
     }
   };
-
   return handleAlertaParcelas();
 };
 

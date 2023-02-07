@@ -11,7 +11,9 @@ import Cliente from "./Pages/Cliente/Cliente";
 import Financeiro from "./Pages/Financeiro/Financeiro";
 import Checkout from "./Pages/Checkout/Checkout";
 import NoPage from "./Components/NoPage/NoPage";
-import Cartao from "./Pages/Cartao/Cartao";
+import Beneficios from "./Pages/Beneficios/Beneficios";
+import Upgrade from "./Pages/Upgrade/Upgrade";
+import FaleConosco from "./Pages/FaleConosco/FaleConosco";
 import collect from "collect.js";
 import Lola from "./fonts/fs_lola.ttf";
 
@@ -119,6 +121,7 @@ function App() {
           if (res.status === 200) {
             let result = res.data;
             setRelatorio(result);
+            console.log(dados)
           }
         })
         .catch((err) => {
@@ -176,7 +179,9 @@ function App() {
               <Route path="/portal" element={<Home />} />
               <Route path="/portal/cliente" element={<Cliente />} />
               <Route path="/portal/financeiro" element={<Financeiro />} />
-              <Route path="/portal/cartao" element={<Cartao />} />
+              <Route path="/portal/beneficios" element={<Beneficios />} />
+              <Route path="/portal/upgrade" element={<Upgrade />} />
+              <Route path="/portal/fale-conosco" element={<FaleConosco />} />
               <Route path="/portal/checkout" element={<Checkout />} />
             </Routes>
           ) : (

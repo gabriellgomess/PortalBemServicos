@@ -14,6 +14,7 @@ const DadosCliente = () => {
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
   };
 
+ 
   return (
     <>
       {dados.cliente_nome ? (                 
@@ -25,7 +26,7 @@ const DadosCliente = () => {
               {dados.vendas_num_apolice? `${dados.vendas_num_apolice}` : '000000000000'}
             </Typography>
             <Typography variant="h6" gutterBottom>
-              Plano <strong>Master</strong>
+              {dados.apolice_titulo}
             </Typography>            
           </Box>
         

@@ -22,6 +22,7 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -136,24 +137,6 @@ const NavBar = () => {
           >
             <img className="img-logo" width={100} src={Logo} alt="Logo" />
           </Box>
-          {/* <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-          APOBEM
-          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Link to="/portal">
               <MenuItem onClick={handleCloseNavMenu}>
@@ -169,12 +152,7 @@ const NavBar = () => {
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">Financeiro</Typography>
               </MenuItem>
-            </Link>
-            {/* <Link to="/portal/cartao">
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">Cartão</Typography>
-                </MenuItem>
-              </Link> */}
+            </Link>         
           </Box>
           <Box sx={{ display: "flex", position: "fixed", right: 2 }}>
             <Tooltip title="Notificações">
@@ -193,7 +171,7 @@ const NavBar = () => {
           </Box>
         </Toolbar>
       </Container>
-      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)} >
+      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
         <div
           role="presentation"
           onClick={toggleDrawer(false)}
@@ -201,39 +179,68 @@ const NavBar = () => {
           className="drawer"
         >
           <List>
+            <Box sx={{ display: "flex", justifyContent: "end", padding: 2 }}>
+              <IconButton onClick={toggleDrawer(false)} aria-label="close">
+                <MenuOpenIcon sx={{ color: "#666666" }} />
+              </IconButton>
+            </Box>
             <Link to="/portal">
               <ListItem button>
-                <ListItemText className="listItemText" style={{color: "#F28E22"}} primary="Página Inicial" />
+                <ListItemText
+                  className="listItemText"
+                  style={{ color: "#F28E22" }}
+                  primary="Página Inicial"
+                />
               </ListItem>
             </Link>
-            <Divider variant="middle" style={{ backgroundColor: "#F28E22" }}  />         
+            <Divider variant="middle" style={{ backgroundColor: "#F28E22" }} />
             <Link to="/portal/financeiro">
               <ListItem button>
-                <ListItemText className="listItemText" style={{color: "#F28E22"}} primary="Financeiro" />
+                <ListItemText
+                  className="listItemText"
+                  style={{ color: "#F28E22" }}
+                  primary="Financeiro"
+                />
               </ListItem>
             </Link>
-            <Divider variant="middle" style={{ backgroundColor: "#F28E22" }}  />   
-            <Link to="">
+            <Divider variant="middle" style={{ backgroundColor: "#F28E22" }} />
+            <Link to="/portal/beneficios">
               <ListItem button>
-                <ListItemText className="listItemText" style={{color: "#F28E22"}} primary="Seus Benefícios" />
+                <ListItemText
+                  className="listItemText"
+                  style={{ color: "#F28E22" }}
+                  primary="Seus Benefícios"
+                />
               </ListItem>
             </Link>
-            <Divider variant="middle" style={{ backgroundColor: "#F28E22" }}  />   
-            <Link to="">
+            <Divider variant="middle" style={{ backgroundColor: "#F28E22" }} />
+            <Link to="/portal/upgrade">
               <ListItem button>
-                <ListItemText className="listItemText" style={{color: "#F28E22"}} primary="Faça o Upgrade" />
+                <ListItemText
+                  className="listItemText"
+                  style={{ color: "#F28E22" }}
+                  primary="Faça o Upgrade"
+                />
               </ListItem>
             </Link>
-            <Divider variant="middle" style={{ backgroundColor: "#F28E22" }}  />   
+            <Divider variant="middle" style={{ backgroundColor: "#F28E22" }} />
             <Link to="/portal/cliente">
               <ListItem button>
-                <ListItemText className="listItemText" style={{color: "#F28E22"}} primary="Cliente" />
+                <ListItemText
+                  className="listItemText"
+                  style={{ color: "#F28E22" }}
+                  primary="Cliente"
+                />
               </ListItem>
             </Link>
-            <Divider variant="middle" style={{ backgroundColor: "#F28E22" }}  />   
-            <Link to="">
+            <Divider variant="middle" style={{ backgroundColor: "#F28E22" }} />
+            <Link to="/portal/fale-conosco">
               <ListItem button>
-                <ListItemText className="listItemText" style={{color: "#F28E22"}} primary="Fale Conosco" />
+                <ListItemText
+                  className="listItemText"
+                  style={{ color: "#F28E22" }}
+                  primary="Fale Conosco"
+                />
               </ListItem>
             </Link>
           </List>
