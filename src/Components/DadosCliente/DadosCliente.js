@@ -1,11 +1,8 @@
 import React, { useContext } from "react";
 import "./DadosCliente.css";
 import ContextAPI from "../../ContextAPI/ContextAPI";
-
-import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import PersonIcon from '@mui/icons-material/Person';
 
 const DadosCliente = () => {
   const { dados, setDados } = useContext(ContextAPI); 
@@ -25,11 +22,15 @@ const DadosCliente = () => {
             <Typography variant="h6" gutterBottom>
               {dados.vendas_num_apolice? `${dados.vendas_num_apolice}` : '000000000000'}
             </Typography>
-            <Typography variant="h6" gutterBottom>
-              {dados.apolice_titulo}
-            </Typography>            
+            
+              {dados.apolice_titulo? 
+              (
+                <Typography variant="h6" gutterBottom>Plano <span style={{fontWeight: 'bold'}}>{dados.apolice_titulo}</span></Typography>  
+              ):(
+                <Typography variant="h6" gutterBottom>Plano não informado</Typography> 
+              )
+              }          
           </Box>
-        
       ) : (
         <h1>Dados inconsistentes</h1>
       )}

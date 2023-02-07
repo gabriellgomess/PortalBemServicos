@@ -152,21 +152,13 @@ const NavBar = () => {
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">Financeiro</Typography>
               </MenuItem>
-            </Link>         
+            </Link>
           </Box>
-          <Box sx={{ display: "flex", position: "fixed", right: 2 }}>
+          <Box sx={{ display: "flex" }}>
             <Tooltip title="Notificações">
               <Badge badgeContent={quantidadeParcelas} color="primary">
                 <NotificationsIcon />
               </Badge>
-            </Tooltip>
-            <Tooltip title="Sair">
-              <IconButton
-                onClick={() => handleLogout()}
-                sx={{ p: 0, marginLeft: 2 }}
-              >
-                <LogoutIcon />
-              </IconButton>
             </Tooltip>
           </Box>
         </Toolbar>
@@ -243,6 +235,15 @@ const NavBar = () => {
                 />
               </ListItem>
             </Link>
+            <Divider variant="middle" style={{ backgroundColor: "#F28E22" }} />
+            <ListItem button onClick={() => handleLogout()}>
+              <Typography textAlign="center">Sair</Typography>
+              <Tooltip title="Sair">
+                <IconButton sx={{ p: 0, marginLeft: 2 }}>
+                  <LogoutIcon />
+                </IconButton>
+              </Tooltip>
+            </ListItem>
           </List>
         </div>
       </Drawer>
