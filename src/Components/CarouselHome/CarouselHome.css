@@ -1,0 +1,6 @@
+.control-arrow:hover{
+    background: transparent !important;
+}
+.carousel.carousel-slider .control-arrow{
+    top: -45px !important
+}

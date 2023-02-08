@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Camada_2" data-name="Camada 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 464.29 311.01">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: .7;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+        stroke: #f2f2f2;
+        stroke-miterlimit: 10;
+        stroke-width: 4px;
+      }
+
+      .cls-4 {
+        fill: url(#Gradiente_sem_nome_6);
+      }
+
+      .cls-2 {
+        opacity: .5;
+      }
+
+      .cls-3 {
+        opacity: .3;
+      }
+    </style>
+    <linearGradient id="Gradiente_sem_nome_6" data-name="Gradiente sem nome 6" x1="232.14" y1="310.01" x2="232.14" y2="11.01" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e7334a"/>
+      <stop offset="1" stop-color="#f28e22"/>
+    </linearGradient>
+  </defs>
+  <g id="Camada_1-2" data-name="Camada 1">
+    <ellipse class="cls-4" cx="232.14" cy="160.51" rx="230.14" ry="149.5"/>
+    <ellipse class="cls-1" cx="232.14" cy="159.51" rx="230.14" ry="149.5"/>
+    <ellipse class="cls-2" cx="232.14" cy="155.51" rx="230.14" ry="149.5"/>
+    <ellipse class="cls-3" cx="232.14" cy="151.5" rx="230.14" ry="149.5"/>
+  </g>
+</svg>
