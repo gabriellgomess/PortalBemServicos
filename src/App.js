@@ -10,12 +10,15 @@ import Home from "./Pages/Home/Home";
 import Cliente from "./Pages/Cliente/Cliente";
 import Financeiro from "./Pages/Financeiro/Financeiro";
 import Checkout from "./Pages/Checkout/Checkout";
+import Cartao from "./Pages/Cartao/Cartao";
 import NoPage from "./Components/NoPage/NoPage";
 import Beneficios from "./Pages/Beneficios/Beneficios";
 import Upgrade from "./Pages/Upgrade/Upgrade";
 import FaleConosco from "./Pages/FaleConosco/FaleConosco";
+import CheckupAnual from "./Pages/CheckUpAnual/CheckupAnual";
 import collect from "collect.js";
 import Lola from "./fonts/fs_lola.ttf";
+import './App.css'
 
 function App() {
   const location = useLocation();
@@ -31,6 +34,7 @@ function App() {
   const [parcelasNaoPagas, setParcelasNaoPagas] = useState([]);
   const [taxaBoleto, setTaxaBoleto] = useState(0);
   const [openAlert, setOpenAlert] = useState(true);
+ 
 
   const theme = createTheme({
     palette: {
@@ -148,9 +152,8 @@ function App() {
     setParcelaPaga(ultimaParcelaPaga);
 
   }, [relatorio]);
-  
-  console.log("Selecionada: ", selecionadas);
   return (
+    <div className="App">
     <ContextAPI.Provider
       value={{
         dados,
@@ -173,7 +176,8 @@ function App() {
     >
       <ThemeProvider theme={theme}>
         <NavBar sx={{fontFamily: 'Lola'}} />
-        <Container sx={{marginTop: '78px', position: 'absolute', maxWidth: '415px', fontFamily: 'Lola'}} fixed>
+        
+          <Container className="container-main" sx={{marginTop: '78px', position: 'absolute', maxWidth: '415px', fontFamily: 'Lola'}} fixed>
           {dados ? (
             <Routes>
               <Route path="/portal" element={<Home />} />
@@ -183,13 +187,21 @@ function App() {
               <Route path="/portal/upgrade" element={<Upgrade />} />
               <Route path="/portal/fale-conosco" element={<FaleConosco />} />
               <Route path="/portal/checkout" element={<Checkout />} />
+              <Route path="/portal/cartao" element={<Cartao />} />
+              <Route path="/portal/checkup-anual" element={<CheckupAnual />} />
             </Routes>
           ) : (
             <NoPage />
           )}
+          <div className='footer'>
+
+          </div>
         </Container>
+       
+        
       </ThemeProvider>
     </ContextAPI.Provider>
+    </div>
   );
 }
 

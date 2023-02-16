@@ -1,6 +1,21 @@
-.container--cliente{
+.container--cliente {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     width: 100%;
+}
+
+.title-cliente {
+    text-align: center !important;
+    color: #EB8722;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.text-bold{
+    font-weight: bold !important;
+    color: black !important;
+}
+.text-default{
+    color: grey;
 }

@@ -28,3 +28,22 @@ a{
 *{
   font-family: 'Lola' !important;
 }
+
+*::-webkit-scrollbar {
+  width: 4px;               /* width of the entire scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+  background: lightgrey;        /* color of the tracking area */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #ed6435;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 1px solid #ed6435;  /* creates padding around scroll thumb */
+}
+@media only screen and (max-width: 768px){
+  *::-webkit-scrollbar {
+    display: none;
+  }
+}

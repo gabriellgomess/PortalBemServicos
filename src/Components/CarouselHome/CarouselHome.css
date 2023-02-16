@@ -4,3 +4,19 @@
 .carousel.carousel-slider .control-arrow{
     top: -45px !important
 }
+
+.carousel .control-next.control-arrow:before {
+    border-left: 12px solid #EB8722;
+}
+
+.carousel .control-prev.control-arrow:before {
+    border-right: 12px solid #EB8722;
+}
+
+.carousel .control-arrow:before, .carousel.carousel-slider .control-arrow:before {
+    margin: 0 5px;
+    display: inline-block;
+    border-top: 26px solid transparent;
+    border-bottom: 26px solid rgb(232 41 76 / 8%);
+    content: '';
+}

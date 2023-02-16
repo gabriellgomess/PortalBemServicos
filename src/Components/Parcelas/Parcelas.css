@@ -12,3 +12,10 @@
     color: #006837 !important;
     margin-top: 20px !important;
 }
+
+.title-financeiro{
+    text-align: center !important;
+    color: #EB8722;
+    text-transform: uppercase;
+    font-weight: bold;
+}

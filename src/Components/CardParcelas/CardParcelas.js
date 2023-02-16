@@ -15,6 +15,8 @@ import Popover from "@mui/material/Popover";
 
 const CardParcelas = (props) => {
   const { selecionadas, setSelecionadas } = useContext(ContextAPI);
+  
+  
   const statusParcela = (status) => {
     if (status === "2") {
       return (
@@ -71,8 +73,8 @@ const CardParcelas = (props) => {
         margin: {
           xs: "10px auto",
           sm: "10px auto",
-          md: "10px 0",
-          lg: "10px 0",
+          md: "10px auto",
+          lg: "10px auto",
         },
         height: "70px",
         width: { xs: "100%", sm: "80%", md: "420px", lg: "370px" },
@@ -98,6 +100,7 @@ const CardParcelas = (props) => {
               value="end"
               control={
                 <Checkbox
+                  checked={selecionadas.findIndex(parcela => parcela.id === props.parcelas.transacao_id) !== -1}
                   value={props.parcelas.transacao_id}
                   onChange={handleChange}
                 />

@@ -1,6 +1,14 @@
-.title-beneficios{
+.title-checkup{
     text-align: center !important;
     color: #EB8722;
     text-transform: uppercase;
     font-weight: bold;
+}
+
+.text-checkup{
+    font-size: 16px;
+}
+
+.button-checkup{
+    margin-top: '30px' !important
 }

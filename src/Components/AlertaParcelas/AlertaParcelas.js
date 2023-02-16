@@ -22,7 +22,7 @@ const AlertaParcelas = () => {
     if (resultLength > 0) {
       return (
         <Link to="/portal/financeiro">
-        <Alert elevation={3} className="alert-nao-pago" icon={false} sx={{ marginTop: 3, backgroundColor: '#FFC4BF', borderRadius: '13px' }} severity="error">
+        <Alert className="alert-nao-pago" icon={false} sx={{ width:{sx: '100%', sm: '100%', md: '60%'}, margin: '30px auto', backgroundColor: '#FFC4BF', borderRadius: '13px', border: '0.3px solid #BA272D', display: 'flex', alignItems: 'center' }} severity="error">
           <Box sx={{width: 'fit-content'}}>
             <WarningAmberIcon sx={{ fontSize: 40, color: '#E7334A' }} />
           </Box>

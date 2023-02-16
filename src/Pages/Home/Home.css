@@ -1,4 +1,4 @@
-.elipse-header{
+.elipse-header {
     max-width: 140%;
     position: fixed;
     left: 50%;
@@ -6,8 +6,73 @@
     margin: 0 auto;
     transform: translate(-50%, -40%);
 }
-@media only screen and (min-width: 500px){
-    .elipse-header{
+
+@media only screen and (min-width: 776px) {
+    .elipse-header {
         display: none;
     }
+
+    .container-elipse {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 776px) {
+    .container-elipse {
+        width: 100vw;
+        height: 290px;
+        position: absolute;
+        top: -50px;
+        left: calc(50% - 50vw);
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        z-index: -10;
+    }
+
+    .elipse-desktop-1 {
+        width: 102%;
+        height: 288px;
+        background: rgb(232, 41, 76);
+        background: linear-gradient(0deg, rgba(232, 41, 76, 1) 0%, rgba(237, 100, 53, 0.5755077030812324) 80%);
+        position: absolute;
+        top: 0;
+        border-radius: 0% 0% 50% 50% / 0% 0% 100% 100%;
+        box-shadow: 1px 6px 9px rgba(0, 0, 0, 0.2);
+
+
+    }
+
+    .elipse-desktop-2 {
+        width: 101%;
+        height: 283px;
+        background: rgb(232, 41, 76);
+        background: linear-gradient(0deg, rgba(232, 41, 76, 1) 0%, rgba(237, 100, 53, 0.7267682072829132) 80%);
+        position: absolute;
+        top: 0;
+        border-radius: 0% 0% 50% 50% / 0% 0% 100% 100%;
+        box-shadow: 1px 6px 9px rgba(0, 0, 0, 0.2);
+
+
+    }
+
+    .elipse-desktop-3 {
+        width: 100%;
+        height: 278px;
+        background: rgb(232, 41, 76);
+        background: linear-gradient(0deg, rgba(232, 41, 76, 1) 0%, rgba(237, 100, 53, 1) 80%);
+        position: absolute;
+        top: 0;
+        border-radius: 0% 0% 50% 50% / 0% 0% 100% 100%;
+        box-shadow: 1px 6px 9px rgba(0, 0, 0, 0.2);
+
+
+    }
+
+}
+
+.container-main {
+    border: '1px solid black';
+    width: 90%;
+    margin: 0 auto;
 }

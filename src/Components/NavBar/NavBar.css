@@ -2,5 +2,12 @@
     font-size: 1.5rem !important;
     font-weight: bold;    
 }
+.MuiDrawer-paperAnchorLeft{
+    top: 71px !important;
+    display: 'flex' !important;
+    justify-content: 'space-between' !important;
+    height: calc(100% - 70px) !important;
+  
+}
 
 
