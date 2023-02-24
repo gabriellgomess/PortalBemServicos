@@ -142,32 +142,32 @@ const NavBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Link to="/portal">
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Página Inicial</Typography>
+                <Typography color='#fff' textAlign="center">Página Inicial</Typography>
               </MenuItem>
             </Link>
             <Link to="/portal/financeiro">
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Financeiro</Typography>
+                <Typography color='#fff' textAlign="center">Financeiro</Typography>
               </MenuItem>
             </Link>
             <Link to="/portal/beneficios">
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Seus Benefícios</Typography>
+                <Typography color='#fff' textAlign="center">Seus Benefícios</Typography>
               </MenuItem>
             </Link>
             <Link to="/portal/upgrade">
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Faça o Upgrade</Typography>
+                <Typography color='#fff' textAlign="center">Faça o Upgrade</Typography>
               </MenuItem>
             </Link>
             <Link to="/portal/cliente">
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Seus Dados</Typography>
+                <Typography color='#fff' textAlign="center">Seus Dados</Typography>
               </MenuItem>
             </Link>
             <Link to="/portal/fale-conosco">
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Fale Conosco</Typography>
+                <Typography color='#fff' textAlign="center">Fale Conosco</Typography>
               </MenuItem>
             </Link>
           </Box>
@@ -179,7 +179,7 @@ const NavBar = () => {
             </Tooltip>
             <Tooltip sx={{display: {sx: 'none', sm: 'none', md: 'block'}}} title="Sair">
               <IconButton onClick={() => handleLogout()} sx={{ p: 1, marginLeft: 2 }}>
-                <LogoutIcon />
+                <LogoutIcon  sx={{ color: '#fff !important' }} />
               </IconButton>
             </Tooltip>
           </Box>

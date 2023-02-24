@@ -14,18 +14,19 @@ const FormCobranca = (props) => {
  
   const [formaPagamento, setFormaPagamento] = useState("");
   const { taxaBoleto, setTaxaBoleto } = useContext(ContextAPI);
+  const { aPagar, setAPagar } = useContext(ContextAPI);
   console.log("TXA BOLETO: ", taxaBoleto);
   console.log("PROPS PAGAR: ", props);
   const handleFormaPagamento = (event) => {
     setFormaPagamento(event.target.value);
   };
 
-  const aPagar = collect(props.pagar).sum("value") + taxaBoleto;
+  const totalNaoPagas = collect(aPagar).sum("vendas_valor") + taxaBoleto;
   return (
     <div>
-      {props.pagar.length > 0
+      {totalNaoPagas > 0
         ? "Será gerada uma cobrança no valor de " +
-          aPagar.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+        totalNaoPagas.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
         : ""}
 
       <Box sx={{ minWidth: 120, marginTop: 3 }}>
@@ -50,7 +51,7 @@ const FormCobranca = (props) => {
       </Box>
       {formaPagamento === 10 && <FormCard dados={props.dados} />}
       {formaPagamento === 20 && (
-        <FormBoleto valorBoleto={aPagar} dados={props.dados} />
+        <FormBoleto valorBoleto={totalNaoPagas} dados={props.dados} />
       )}
     </div>
   );

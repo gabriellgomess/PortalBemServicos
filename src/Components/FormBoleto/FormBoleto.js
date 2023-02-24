@@ -72,16 +72,17 @@ const FormBoleto = (props) => {
       street: dadosAsaas.cliente_endereco,
       number: dadosAsaas.cliente_numero
     };
-    // axios.post("https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/handlePortal.php?param=3",data)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       console.log("RES API 3: ",res.data);
-    //     }
-    //   }
-    //   )
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    axios.post("https://www.grupofortune.com.br/integracao/softwareexpress/atualizacao/portal/handlePortal.php?param=3",data)
+      .then((res) => {
+        if (res.status === 200) {
+          console.log("Retorno da API Asaas do boleto gerado: ");
+          console.table(res.data);
+        }
+      }
+      )
+      .catch((err) => {
+        console.log(err);
+      });
     console.log(data);
     toast.success('Seu boleto foi gerado!', {
       position: "bottom-center",

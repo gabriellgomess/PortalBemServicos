@@ -14,20 +14,21 @@ const AlertaParcelas = () => {
   useEffect(() => {
     handleAlertaParcelas();
   }, []);
+  
 
   const handleAlertaParcelas = () => {
     let result = relatorio.filter((item) => item.transacao_recebido == 2);
 
     let resultLength = result.length;
-    if (resultLength > 0) {
+    if ( resultLength > 0 ) {
       return (
         <Link to="/portal/financeiro">
         <Alert className="alert-nao-pago" icon={false} sx={{ width:{sx: '100%', sm: '100%', md: '60%'}, margin: '30px auto', backgroundColor: '#FFC4BF', borderRadius: '13px', border: '0.3px solid #BA272D', display: 'flex', alignItems: 'center' }} severity="error">
           <Box sx={{width: 'fit-content'}}>
             <WarningAmberIcon sx={{ fontSize: 40, color: '#E7334A' }} />
           </Box>
-          <Box sx={{marginLeft: 1}}>
-            Você tem <strong>{resultLength}</strong> {resultLength > 1 ? "parcelas vencidas" : "parcela vencida"} clique aqui para ver mais detalhes
+          <Box sx={{marginLeft: 1, display: 'flex', alignItems: 'center'}}>
+            <span>Você tem <strong>{resultLength}</strong> {resultLength > 1 ? "parcelas vencidas" : "parcela vencida"} clique aqui para ver mais detalhes</span>
           </Box>
         </Alert>
         </Link>

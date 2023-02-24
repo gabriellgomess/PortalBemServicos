@@ -1,22 +1,31 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import ContextAPI from "../../ContextAPI/ContextAPI";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import { Checkbox, FormControlLabel } from "@mui/material";
-import collect from "collect.js";
+import Typography from "@mui/material/Typography";
 import moment from "moment";
 import "moment/locale/pt-br";
-import "./CardParcelas.css";
+import "./UpCardParcelas.css";
 import Popover from "@mui/material/Popover";
 
-const CardParcelas = (props) => {
-  const { selecionadas, setSelecionadas } = useContext(ContextAPI);
-  
-  
+const UpCardParcelas = (props) => {
+  const { aPagar, setAPagar } = useContext(ContextAPI);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
   const statusParcela = (status) => {
     if (status === "2") {
       return (
@@ -32,33 +41,20 @@ const CardParcelas = (props) => {
       );
     }
   };
-  useEffect(() => {
-    setSelecionadas([]);
-  }, []);
 
-  const handleChange = (event) => {
-    if (event.target.checked) {
-      const parcela = { id: event.target.value, value: props.parcelas.transacao_valor };
-      setSelecionadas([...selecionadas, parcela]);
+  const handleCheckBox = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      const novoArray = [
+        ...aPagar,
+        { transacao_id: value, vendas_valor: props.parcelas.vendas_valor },
+      ];
+      setAPagar(novoArray);
     } else {
-      setSelecionadas(
-        selecionadas.filter(parcela => parcela.id !== event.target.value)
-      );
+      const novoArray = aPagar.filter((item) => item.transacao_id !== value);
+      setAPagar(novoArray);
     }
   };
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
 
   return (
     <Card
@@ -67,7 +63,7 @@ const CardParcelas = (props) => {
           ? "status-pago"
           : "status-nao-pago"
       }
-      elevation={3}
+      elevation={0}
       sx={{
         borderRadius: "12px",
         margin: {
@@ -76,8 +72,8 @@ const CardParcelas = (props) => {
           md: "10px auto",
           lg: "10px auto",
         },
-        height: "70px",
-        width: { xs: "100%", sm: "80%", md: "420px", lg: "370px" },
+        height: "60px",
+        width: { xs: "100%", sm: "80%", md: "calc(100% - 40px)", lg: "calc(100% - 40px)" },
       }}
     >
       <CardContent sx={{ padding: "16px 16px 0 16px" }}>
@@ -90,25 +86,24 @@ const CardParcelas = (props) => {
         >
           {props.parcelas.transacao_recebido === "2" ? (
             <FormControlLabel
-              sx={{
-                margin: 0,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "18px",
-              }}
-              value="end"
-              control={
-                <Checkbox
-                  checked={selecionadas.findIndex(parcela => parcela.id === props.parcelas.transacao_id) !== -1}
-                  value={props.parcelas.transacao_id}
-                  onChange={handleChange}
-                />
-              }
-              //   label="End"
-              labelPlacement="top"
-            />
-          ) : null}
+            sx={{
+              margin: 0,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "18px",
+              height: "18px",
+            }}
+            control={
+              <Checkbox
+                defaultChecked={true}
+                value={props.parcelas.transacao_id}
+                onClick={handleCheckBox}
+              />
+            }        
+          />
+        ) : null}
+           
           <Box
             onClick={handleClick}
             sx={{
@@ -126,13 +121,10 @@ const CardParcelas = (props) => {
             </Typography>
             {statusParcela(props.parcelas.transacao_recebido)}
             <Typography variant="h6">
-              {parseFloat(props.parcelas.transacao_valor).toLocaleString(
-                "pt-br",
-                {
-                  style: "currency",
-                  currency: "BRL",
-                }
-              )}
+              {parseFloat(props.parcelas.vendas_valor).toLocaleString("pt-br", {
+                style: "currency",
+                currency: "BRL",
+              })}
             </Typography>
           </Box>
         </Box>
@@ -149,23 +141,26 @@ const CardParcelas = (props) => {
         sx={{ padding: "10px" }}
       >
         <Box sx={{ p: 2 }}>
-          <Typography variant='h6'>Detalhes da parcela</Typography>
+          <Typography variant="h6">Detalhes da parcela</Typography>
           <Typography>
             Data de vencimento:{" "}
             {moment(props.parcelas.transacao_data).format("DD/MM/YYYY")}
           </Typography>
           <Typography>ID da Parcela: {props.parcelas.transacao_id}</Typography>
-          <Typography>Valor: {parseFloat(props.parcelas.transacao_valor).toLocaleString(
-                "pt-br",
-                {
-                  style: "currency",
-                  currency: "BRL",
-                }
-              )}</Typography>
+          <Typography>
+            Valor:{" "}
+            {parseFloat(props.parcelas.transacao_valor).toLocaleString(
+              "pt-br",
+              {
+                style: "currency",
+                currency: "BRL",
+              }
+            )}
+          </Typography>
         </Box>
       </Popover>
     </Card>
   );
 };
 
-export default CardParcelas;
+export default UpCardParcelas;

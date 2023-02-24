@@ -20,6 +20,7 @@ const FormCard = () => {
     name: "",
     number: "",
   });
+  
   const { taxaBoleto, setTaxaBoleto } = useContext(ContextAPI);
   const [cardExpiry, setCardExpiry] = useState("");
 
@@ -32,17 +33,17 @@ const FormCard = () => {
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    // remover a / do expiry antes de salvar no state
-    if (name === "expiry") {
-      let expiry = (e.target.value).split("/").join("");
-      setCard({ ...card, [name]: expiry });
-      return;
-    }else{
+    const { name, value } = e.target;    
+   
       setCard({ ...card, [name]: value });
-    }
     
     
+    console.log("CARD: ", card);
+  };
+
+  const handleInputChangeExpiry = (value) => {
+    let expiry = value.replace(/\D/g, ''); // remover qualquer caractere que não seja número
+    setCard({ ...card, expiry });
     console.log("CARD: ", card);
   };
 
@@ -80,7 +81,7 @@ const FormCard = () => {
     setCardExpiry(formattedValue);
     if(event.target.name === 'expiry'){
       let expiry = (event.target.value).split("/").join("")
-      handleInputChange(expiry)
+      handleInputChangeExpiry(expiry)
     }
   };
 

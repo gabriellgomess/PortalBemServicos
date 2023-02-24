@@ -34,6 +34,7 @@ function App() {
   const [parcelasNaoPagas, setParcelasNaoPagas] = useState([]);
   const [taxaBoleto, setTaxaBoleto] = useState(0);
   const [openAlert, setOpenAlert] = useState(true);
+  const [aPagar, setAPagar] = useState([]);
  
 
   const theme = createTheme({
@@ -125,7 +126,6 @@ function App() {
           if (res.status === 200) {
             let result = res.data;
             setRelatorio(result);
-            console.log(dados)
           }
         })
         .catch((err) => {
@@ -142,6 +142,7 @@ function App() {
       });
     setParcelasNaoPagas(parcelasNaoPagas);
 
+
     let parcelas = collect(relatorio);
     let ultimaParcelaPaga = parcelas
       .where("transacao_recebido", "1")
@@ -152,6 +153,17 @@ function App() {
     setParcelaPaga(ultimaParcelaPaga);
 
   }, [relatorio]);
+
+  useEffect(() => {
+    setAPagar(
+      parcelasNaoPagas.map((item) => ({
+        transacao_id: item.transacao_id,
+        vendas_valor: item.vendas_valor,
+      }))
+    );
+    
+  }, [parcelasNaoPagas]);
+
   return (
     <div className="App">
     <ContextAPI.Provider
@@ -172,6 +184,8 @@ function App() {
         setTaxaBoleto,
         openAlert,
         setOpenAlert,
+        aPagar,
+        setAPagar,
       }}
     >
       <ThemeProvider theme={theme}>

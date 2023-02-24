@@ -19,19 +19,20 @@
 
 @media only screen and (min-width: 776px) {
     .container-elipse {
-        width: 100vw;
+        width: 99vw;
         height: 290px;
         position: absolute;
         top: -50px;
-        left: calc(50% - 50vw);
+        left: calc(50% - 49.4vw);
         display: flex;
         align-items: flex-start;
         justify-content: center;
         z-index: -10;
+        margin: 0 auto;
     }
 
     .elipse-desktop-1 {
-        width: 102%;
+        width: 99%;
         height: 288px;
         background: rgb(232, 41, 76);
         background: linear-gradient(0deg, rgba(232, 41, 76, 1) 0%, rgba(237, 100, 53, 0.5755077030812324) 80%);
@@ -44,7 +45,7 @@
     }
 
     .elipse-desktop-2 {
-        width: 101%;
+        width: 98%;
         height: 283px;
         background: rgb(232, 41, 76);
         background: linear-gradient(0deg, rgba(232, 41, 76, 1) 0%, rgba(237, 100, 53, 0.7267682072829132) 80%);
@@ -57,9 +58,9 @@
     }
 
     .elipse-desktop-3 {
-        width: 100%;
+        width: 97%;
         height: 278px;
-        background: rgb(232, 41, 76);
+        background: rgb(232, 41, 76);        
         background: linear-gradient(0deg, rgba(232, 41, 76, 1) 0%, rgba(237, 100, 53, 1) 80%);
         position: absolute;
         top: 0;
