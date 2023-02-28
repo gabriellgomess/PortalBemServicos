@@ -145,6 +145,7 @@ const Home = () => {
               marginTop: 2,
             }}
           >
+            <Link to="tel:0800 006 8003">
             <Card sx={{ width: "70px", height: "70px" }}>
               <CardActionArea>
                 <CardMedia
@@ -155,50 +156,50 @@ const Home = () => {
                     height: "40px",
                   }}
                 >
-                 <svg
-    id="Camada_2"
-    data-name="Camada 2"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 29 28.295"
-    width={29}
-    height={28.295}
-  >
-    <defs>
-      <style>
-        {
-          "\n      .cls-1 {\n        fill: none;\n        stroke-width: .71px;\n      }\n\n      .cls-1, .cls-2 {\n        stroke: #666;\n        stroke-miterlimit: 10;\n      }\n\n      .cls-2 {\n        fill: #666;\n        stroke-width: .07px;\n      }\n    "
-        }
-      </style>
-    </defs>
-    <g id="Camada_1-2" data-name="Camada 1">
-      <g>
-        <path
-          className="cls-2"
-          d="m6.475 11.954v9.837c-2.145 0.628 -4.31 0.3 -5.46 -1.024 -0.879 -1.005 -0.918 -2.29 -0.957 -3.546 -0.048 -1.517 -0.097 -3.469 1.295 -4.716 1.266 -1.121 3.266 -1.276 5.122 -0.551Z"
-        />
-        <path
-          className="cls-1"
-          d="m3.962 11.683C3.604 5.614 8.398 0.483 14.186 0.348c5.962 -0.135 11.084 5.073 10.717 11.335"
-        />
-        <path
-          className="cls-1"
-          d="m24.912 22.062c-0.174 0.628 -0.589 1.797 -1.643 2.802 -2.116 2.039 -4.977 1.691 -5.392 1.643"
-        />
-        <path
-          className="cls-2"
-          d="m22.525 11.954v9.837c2.145 0.628 4.31 0.3 5.46 -1.024 0.879 -1.005 0.918 -2.29 0.957 -3.546 0.048 -1.517 0.097 -3.469 -1.295 -4.716 -1.266 -1.121 -3.266 -1.276 -5.122 -0.551Z"
-        />
-        <path
-          className="cls-2"
-          cx={15.6}
-          cy={27.34}
-          rx={3.25}
-          ry={1.91}
-          d="M18.216 26.42A3.141 1.846 0 0 1 15.075 28.266A3.141 1.846 0 0 1 11.934 26.42A3.141 1.846 0 0 1 18.216 26.42z"
-        />
-      </g>
-    </g>
-  </svg>
+                  <svg
+                    id="Camada_2"
+                    data-name="Camada 2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 29 28.295"
+                    width={29}
+                    height={28.295}
+                  >
+                    <defs>
+                      <style>
+                        {
+                          "\n      .cls-1 {\n        fill: none;\n        stroke-width: .71px;\n      }\n\n      .cls-1, .cls-2 {\n        stroke: #666;\n        stroke-miterlimit: 10;\n      }\n\n      .cls-2 {\n        fill: #666;\n        stroke-width: .07px;\n      }\n    "
+                        }
+                      </style>
+                    </defs>
+                    <g id="Camada_1-2" data-name="Camada 1">
+                      <g>
+                        <path
+                          className="cls-2"
+                          d="m6.475 11.954v9.837c-2.145 0.628 -4.31 0.3 -5.46 -1.024 -0.879 -1.005 -0.918 -2.29 -0.957 -3.546 -0.048 -1.517 -0.097 -3.469 1.295 -4.716 1.266 -1.121 3.266 -1.276 5.122 -0.551Z"
+                        />
+                        <path
+                          className="cls-1"
+                          d="m3.962 11.683C3.604 5.614 8.398 0.483 14.186 0.348c5.962 -0.135 11.084 5.073 10.717 11.335"
+                        />
+                        <path
+                          className="cls-1"
+                          d="m24.912 22.062c-0.174 0.628 -0.589 1.797 -1.643 2.802 -2.116 2.039 -4.977 1.691 -5.392 1.643"
+                        />
+                        <path
+                          className="cls-2"
+                          d="m22.525 11.954v9.837c2.145 0.628 4.31 0.3 5.46 -1.024 0.879 -1.005 0.918 -2.29 0.957 -3.546 0.048 -1.517 0.097 -3.469 -1.295 -4.716 -1.266 -1.121 -3.266 -1.276 -5.122 -0.551Z"
+                        />
+                        <path
+                          className="cls-2"
+                          cx={15.6}
+                          cy={27.34}
+                          rx={3.25}
+                          ry={1.91}
+                          d="M18.216 26.42A3.141 1.846 0 0 1 15.075 28.266A3.141 1.846 0 0 1 11.934 26.42A3.141 1.846 0 0 1 18.216 26.42z"
+                        />
+                      </g>
+                    </g>
+                  </svg>
                 </CardMedia>
                 <CardContent
                   sx={{
@@ -219,6 +220,8 @@ const Home = () => {
                 </CardContent>
               </CardActionArea>
             </Card>
+            </Link>
+            <Link to="tel:0800 006 8003">
             <Card sx={{ width: "70px", height: "70px" }}>
               <CardActionArea>
                 <CardMedia
@@ -270,6 +273,8 @@ const Home = () => {
                 </CardContent>
               </CardActionArea>
             </Card>
+            </Link>
+            <Link to="https://api.whatsapp.com/send?phone=5551980364011&text=Ol%C3%A1" target='_blank'>
             <Card sx={{ width: "70px", height: "70px" }}>
               <CardActionArea>
                 <CardMedia
@@ -331,6 +336,8 @@ const Home = () => {
                 </CardContent>
               </CardActionArea>
             </Card>
+            </Link>
+            <Link to="mailto:relacionamento@apobem.com.br" target='_blank'>
             <Card sx={{ width: "70px", height: "70px" }}>
               <CardActionArea>
                 <CardMedia
@@ -405,6 +412,7 @@ const Home = () => {
                 </CardContent>
               </CardActionArea>
             </Card>
+            </Link>
           </Box>
         </Box>
 

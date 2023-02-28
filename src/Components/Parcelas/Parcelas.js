@@ -16,7 +16,6 @@ const Parcelas = () => {
   const totalNaoPagas = collect(aPagar).sum("vendas_valor");
 
 
-
   return (
     <Box
       sx={{

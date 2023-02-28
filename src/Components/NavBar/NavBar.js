@@ -27,6 +27,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Button from "@mui/material/Button";
 
 const NavBar = () => {
+  const { dados } = useContext(ContextAPI);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const { relatorio, setRelatorio } = useContext(ContextAPI);
   const [quantidadeParcelas, setQuantidadeParcelas] = useState(0);
@@ -79,6 +80,8 @@ const NavBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          {dados?(
+              
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -89,6 +92,7 @@ const NavBar = () => {
             >
               {drawerOpen?<CloseIcon />:<MenuIcon />}
             </IconButton>
+          ):null}
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -140,6 +144,8 @@ const NavBar = () => {
             <img className="img-logo" width={100} src={Logo} alt="Logo" />
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {dados?(
+              <>
             <Link to="/portal">
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography color='#fff' textAlign="center">Página Inicial</Typography>
@@ -170,7 +176,12 @@ const NavBar = () => {
                 <Typography color='#fff' textAlign="center">Fale Conosco</Typography>
               </MenuItem>
             </Link>
+            </>
+            ):(
+              null)}
           </Box>
+          {dados?(
+              <>
           <Box sx={{ display: "flex", alignItems: 'center' }}>              
             <Tooltip title="Notificações">
               <Badge badgeContent={quantidadeParcelas} color="primary">
@@ -183,9 +194,12 @@ const NavBar = () => {
               </IconButton>
             </Tooltip>
           </Box>
+          </>
+          ):(null)}
         </Toolbar>
       </Container>
       <Drawer className="menu-lateral" anchor="left" open={drawerOpen} onClose={toggleDrawer(false)} sx={{display: 'flex', justifyContent: 'space-between', height: 'calc(100% - 70px)'}}>
+        
         <div
           role="presentation"
           onClick={toggleDrawer(false)}
